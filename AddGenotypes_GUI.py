@@ -5,7 +5,6 @@ import os
 from PyQt4 import QtGui, QtCore, uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from selection import *
 from collections import defaultdict
 import shutil
 import pandas as pd
