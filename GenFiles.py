@@ -5,6 +5,7 @@ import csv
 import pandas as pd
 import zipfile
 import shutil
+import re
 
 
 chips = {19720: "GGPv02", 
@@ -16,7 +17,11 @@ chips = {19720: "GGPv02",
 138892: "HDv02", 
 139376: "HDv02", 
 54001:"50Kv01" , 
-54609: "50Kv02"}
+54609: "50Kv02",
+51274: "IDBv03",
+52445: "IDBv03",
+49629: "Versa50K"
+         }
 
 TraitSNPs = {
 'Caseins':['BCNAB', 'BCNAB_2', 'BCNAB_3','GNSC319','GNSC319_3','GNSC319_B1','GNSC355','GNSC355_3','GNSC355_B1','KappaCasein12951_1','KappaCasein12951_2','KappaCasein12951_3'],
@@ -848,33 +853,44 @@ class genZipPackage:
         self.zipname=zipDatoteka
         self.name=zipDatoteka.strip(".zip")
         self.sernum=zipDatoteka.strip(".zip").strip('Matija_Rigler_')
-        self.genodate=zipDatoteka.strip(".zip").strip("Matija_Rigler_")[-9:].strip("_").strip('/')
+        self.genodate=str([i for i in re.findall('\d+', self.zipname) if '2013' in i or '2014' in i or '2015' in i or '2017'
+                           in i or '2018' in i or '2016' in i or '2019' in i][0])
         self.infiles=self.zipFile.namelist()
-        self.finalreportname=filter(lambda x: x.endswith ("FinalReport.zip"), self.infiles)
-            
+        self.finalreportname=[s for s in self.infiles if "final" in s.lower()][0] if len([s for s in self.infiles if "final" in s.lower()]) == 1 else [s for s in self.infiles if "final" in s.lower()]
+        self.samplemapname = [s for s in self.infiles if "sample_map" in s.lower()][0] if len([s for s in self.infiles if "sample_map" in s.lower()]) == 1 else [s for s in self.infiles if "sample_map" in s.lower()]
+        self.snpmapname = [s for s in self.infiles if "snp_map" in s.lower()][0] if len([s for s in self.infiles if "snp_map" in s.lower()]) == 1 else [s for s in self.infiles if "snp_map" in s.lower()]
+
     def unzip(self):
         self.zipFile.extractall()
     
     def extractFinalReport(self): #extracts all FinalReports and extracts them / if there is no FinalReport, it returns notice
         if self.finalreportname:
-            for i in self.finalreportname:
-                self.zipFile.extract(i) 
-                zipfile.ZipFile(i).extractall()
-                os.remove(os.getcwd()+'/'+i)
+            if self.finalreportname.endswith('zip'):
+                self.zipFile.extract(self.finalreportname)
+                zipfile.ZipFile(self.finalreportname).extractall()
+                os.remove(os.getcwd()+'/'+self.finalreportname)
+                shutil.move(self.finalreportname.strip(".zip") + ".txt", self.name + '_FinalReport.txt')
+            else:
+                self.zipFile.extract(self.finalreportname)
+                shutil.move(self.finalreportname, self.name + '_FinalReport.txt')
         else:
             return 'No FinalReport infile in ' + self.name
         
     def extractSampleMap(self):
-        if 'Sample_Map.zip' in self.infiles:
-            self.zipFile.extract("Sample_Map.zip")           
-            zipfile.ZipFile("Sample_Map.zip").extractall()
-            os.remove('Sample_Map.zip')
-            shutil.move('Sample_Map.txt', self.name+'_Sample_Map.txt')
+        if self.samplemapname:
+            if self.samplemapname.endswith('zip'):
+                self.zipFile.extract(self.samplemapname)
+                zipfile.ZipFile(self.samplemapname).extractall()
+                #os.remove(self.samplemapname)
+                shutil.move(self.samplemapname.strip("zip") + "txt", self.name+'_Sample_Map.txt')
+            else:
+                self.zipFile.extract(self.samplemapname)
+                shutil.move(self.samplemapname, self.name + '_Sample_Map.txt')
         else:
             return 'No Sample_Map.zip in {} infiles'.format(self.name)
         
     def extractSampleNames(self):
-        if 'Sample_Map.zip' in self.infiles: 
+        if self.samplemapname:
             self.extractSampleMap()
             #os.system('sed -i "s|SI  |SI|g" ' + self.name+'_Sample_Map.txt') #remove double spacing
             #os.system('sed -i "s|SI |SI|g" ' + self.name+'_Sample_Map.txt') #remove space in sample IDs
@@ -885,12 +901,14 @@ class genZipPackage:
 
     
     def extractErrorNames(self): #this creates a list of tuples - errorID, correctedID
-        if 'Sample_Map.zip' in self.infiles:
+        if self.samplemapname:
             self.extractSampleMap()
             #os.system('sed -i "s|SI  |SI|g" ' + self.name+'_Sample_Map.txt') #remove double spacing
-            #os.system('sed -i "s|SI |SI|g" ' + self.name+'_Sample_Map.txt') #remove space in sample IDs
+            #os.system('sed -i "s|SI |SI|g" ' + self.name+'_Sample_
+            # Map.txt') #remove space in sample IDs
             sampleTable = pd.read_table(self.name+'_Sample_Map.txt')
-            names=sampleTable['Name']
+            names=sampleTable['ID']
+            print(names)
             errornames=[]
             for i in names:
                 try:
@@ -908,11 +926,15 @@ class genZipPackage:
                     
                   
     def extractSNPMap(self):
-        if 'SNP_Map.zip' in self.infiles:
-            self.zipFile.extract("SNP_Map.zip")            
-            zipfile.ZipFile("SNP_Map.zip").extractall()
-            os.remove('SNP_Map.zip')
-            shutil.move('SNP_Map.txt', self.name+'_SNP_Map.txt')
+        if self.snpmapname:
+            if self.snpmapname.endswith('zip'):
+                self.zipFile.extract(self.snpmapname)
+                zipfile.ZipFile(self.snpmapname).extractall()
+                #os.remove(self.snpmapname)
+                shutil.move(self.snpmapname.strip("zip") + "txt", self.name + '_SNP_Map.txt')
+            else:
+                self.zipFile.extract(self.snpmapname)
+                shutil.move(self.snpmapname, self.name + '_SNP_Map.txt')
         else:
             return 'No SNP_Map.zip in {} infiles'.format(self.name)
 
@@ -938,8 +960,7 @@ class pedFile:
     def __init__(self, pedDatoteka):
         self.pedname=pedDatoteka
         self.name=pedDatoteka.strip(".ped")
-        self.sernum=pedDatoteka.strip(".ped").strip("Matija_Rigler_")
-        self.genodate=pedDatoteka.strip(".ped").strip("Matija_Rigler_")[-9:].strip("_")
+        self.pedContent=open(pedDatoteka).read().strip("\n").split("\n") #here don't read it in as panda table since it takes much longer
         self.pedContent=open(pedDatoteka).read().strip("\n").split("\n") #here don't read it in as panda table since it takes much longer
         self.samples=[line.split(" ")[1] for line in self.pedContent]
         self.mapContent=open(pedDatoteka.strip(".ped") + ".map").read().strip("\n").split("\n")
@@ -968,7 +989,7 @@ class pedFile:
             for snp in SNPList:
                 f.write(snp + "\n")
         os.system("plink --file " + self.name + " --cow --extract SNPList.txt --recode --out SNPList")
-        
+
     def extractTraitSNPs(self, Trait):
         SNPonChip = [x for x in TraitSNPs[Trait] if x in self.snps]
         if SNPonChip:
