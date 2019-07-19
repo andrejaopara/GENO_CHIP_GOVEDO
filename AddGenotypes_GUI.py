@@ -13,7 +13,7 @@ import os
 import zipfile
 import csv
 import GenFiles
-import commands
+#import commands
 import tempfile
 
 
@@ -175,14 +175,12 @@ class AddGenotypes(QtGui.QMainWindow, Ui_MainWindow):
 
         # read in animal ID / Seq / DateOfBirth / SexCode table
         # create a dictionary
-        Rj_IDSeq_Dict = defaultdict()
-        with open(RJ_IDSeq, 'rb') as IDSeq:
+        Breed_IDSeq_Dict = defaultdict()
+        with open(Breed_IDSeq, 'rb') as IDSeq:
             reader = csv.reader(IDSeq, delimiter=',')
             for line in reader:
-                Rj_IDSeq_Dict[line[0]] = line[1:]
+                Breed_IDSeq_Dict[line[0]] = line[1:]
 
-        print(self.date)
-        print(self.TEMPDIR)
         ############################################################################################################
         #############################################################################################################
         # create a directory with the current date for temp genotype manipulation
@@ -217,6 +215,8 @@ class AddGenotypes(QtGui.QMainWindow, Ui_MainWindow):
         print(onePackage.snpmapname)
         print(onePackage.samplemapname)
         print(onePackage.finalreportname)
+
+        os.system("sed -i '/^[[:space:]]*$/d'" + onePackage.finalreportname)
 
         # check for error IDs and replace the prior identified errouneous IDs
         replaceIDs = open(self.codeDir + "/ErrorIDs_genotipi.txt").read().strip().split("\n")
@@ -436,8 +436,8 @@ if __name__ == "__main__":
     window.tempDirShow.setText("/home/jana/Genotipi/Genotipi_DATA/Rjava_TEMP/")
     window.ZipDirShow.setText("/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/Rjava/Zip/")
     window.MergeDirShow.setText("/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/Rjava/Top/")
-    window.PeddarowDirShow.setText("/home/jana/Genotipi/Genotipi_CODES/SNPchimpRepo/source_codes/PEDDA_ROW/")
-    window.ZanardiDirShow.setText("/home/jana/Genotipi/Genotipi_CODES/Zanardi/")
-    window.CodeDirShow.setText("/home/jana/Genotipi/Genotipi_CODES/")
+    window.PeddarowDirShow.setText("/home/jana/Genotipi/TransformGeno/SNPchimpRepo/source_codes/PEDDA_ROW/")
+    window.ZanardiDirShow.setText("/home/jana/Genotipi/TransformGeno/Zanardi/")
+    window.CodeDirShow.setText("/home/jana/Genotipi/TransformGeno/")
     sys.exit(app.exec_())
 

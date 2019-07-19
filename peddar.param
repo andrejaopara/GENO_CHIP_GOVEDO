@@ -21,14 +21,14 @@
 #####################################################ELN#######
 
 ### Final report in ROW format (for matrix format, there is another software!)
-finrep='Matija_Rigler_BOVGP4V01_20151229_FinalReport.txt' 
+finrep='test_FinalReport.txt' 
 
 ### SNP map (orinal from Illumina)
-snpmap='SNP_Map.txt'      
+snpmap='test_SNPMap.txt'      
 
 ### Often there are multiple allele codings in the row format files, chose the one you wish on your PED file
-### Options allowed: 'top', 'forward','ab'.
-allele='top'                                
+### Options allowed: 'forward', 'forward','ab'.
+allele='AlleleFormat'                                
 
 ### Position of the SNP ID in the file (usually is the first field, but may change)                                            
 SNPid_pos='1'                               
@@ -37,10 +37,10 @@ SNPid_pos='1'
 INDid_pos='2'                               
 
 ### Name of output PED and MAP files
-outname='GGP_HD_20140422'                   
+outname='test_outputfile'                   
 
 ### This will be used on the "Fid" column (first column in the PED)
-brdcode='RJAVA'                              
+brdcode='TEST'                              
 
 # Options: ',' (for CSV) / ' ' (for TXT) / '\t' (for TSV)
 sep='\t'                                    

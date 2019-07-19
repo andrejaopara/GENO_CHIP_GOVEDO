@@ -17,17 +17,17 @@ import sys,os
 '''
 
 ### HEADER
-print "#"*60
-print "###                                                      ### "
-print "###                  PEDDA software                      ### "
-print "###      Converts Illumina row fmt into PLINK fmt        ### "
-print "###                                                      ### "
-print "###                              Coded by: E.L.Nicolazzi ### "
-print "#"*60
+print("#"*60)
+print("###                                                      ### ")
+print("###                  PEDDA software                      ### ")
+print("###      Converts Illumina row fmt into PLINK fmt        ### ")
+print("###                                                      ### ")
+print("###                              Coded by: E.L.Nicolazzi ### ")
+print("#"*60)
 
 ### USEFUL DEFs
 def bomb(message):
-    print "ERROR: "+message
+    print("ERROR: "+message)
     sys.exit()
 
 def check_file(value,name):
@@ -58,7 +58,7 @@ if PARAM[-1]=='\\t':PARAM[-1]='\t'
 if len(PARAM)!=8:bomb('Wrong number of parameters found in peddam.param. Please check it!')
 else:finrep,snpmap,allele,SNPid_pos,INDid_pos,outname,brdcode,sep=PARAM
 
-print "### Rough check of parameters"
+print("### Rough check of parameters")
 ### Run checks on the parameters (add-on for user release)
 check_file(finrep,'finrep')
 check_file(snpmap,'snpmap')
@@ -66,9 +66,9 @@ check_strand(allele)
 check_pos(SNPid_pos,'SNPid_pos')
 check_pos(INDid_pos,'INDid_pos')
 check_sep(sep)
-print "====> Parameters check: OK"
-print 
-print "### Processing FinalReport file:"
+print("====> Parameters check: OK")
+print()
+print("### Processing FinalReport file:")
 ### Start doing stuff
 readfrom=False
 SNPname=[]
@@ -77,37 +77,40 @@ c=0;anim=-1;snp=0
 outped=open(outname+'.ped','w')
 outmap=open(outname+'.map','w')
 
+#os.system("sed -i '/^[[:space:]]*$/d' " + finrep)
+
 for en,a in enumerate(open(finrep)):
     ## Header of the Illumina row format (line below the [Data] line)
     if 'Allele1' in a:  
         readfrom=True
         line=a.lower().strip().split(sep)
         if not 'allele1 - '+allele.lower() in line:
-            print "ERROR: The header does not contain the required field: Allele1 - "+allele
-            print 
-            print "Header read:"
-            print a
-            print "Possible causes:"
-            print "      - The requested allele format is not present in your header"
-            print "        SOLUTION: choose an allele format that is available"
-            print "      - The header in the Illumina header has changed (no 'Allele1 - '"+allele+" field is present - not case sensitive!)"
-            print "        SOLUTION: Contact ezequiel.nicolazzi@ptp.it, or if you know how to code in python, change the if string related to this"
-            print "      - The FinalReport file separator is not right (you provided "+sep+" )"
-            print "        SOLUTION: Choose the right separator"
-            print "      - The FinalReport file is in Matrix format"
-            print "        SOLUTION: Use the software pedda_matrix.py, instead of this script!"
-            print "      - Other"
-            print "        SOLUTION: Contact ezequiel.nicolazzi@ptp.it ... send me the header (e.g. first 10 rows) of the FinalReport file you're using"
-            print
+            print("ERROR: The header does not contain the required field: Allele1 - "+allele)
+            print()
+            print("Header read:")
+            print()
+            print("Possible causes:")
+            print("      - The requested allele format is not present in your header")
+            print("        SOLUTION: choose an allele format that is available")
+            print("      - The header in the Illumina header has changed (no 'Allele1 - '"+allele+" field is present - not case sensitive!)")
+            print("        SOLUTION: Contact ezequiel.nicolazzi@ptp.it, or if you know how to code in python, change the if string related to this")
+            print("      - The FinalReport file separator is not right (you provided "+sep+" )")
+            print("        SOLUTION: Choose the right separator")
+            print("      - The FinalReport file is in Matrix format")
+            print("        SOLUTION: Use the software pedda_matrix.py, instead of this script!")
+            print("      - Other")
+            print("        SOLUTION: Contact ezequiel.nicolazzi@ptp.it ... send me the header (e.g. first 10 rows) of the FinalReport file you're using")
+            print()
             sys.exit()
         alle_pos1=line.index('allele1 - '+allele.lower())
         alle_pos2=alle_pos1+1
         continue
-    if not readfrom:continue
+    if not readfrom:
+        continue
     line=a.strip().split(sep)
     if alle_pos2 > len(line): 
-        bomb("Probable error in the separator.. Position of Allele2 found in "+alle_pos2+", but length of line in row "+en+" is "+len(line)+" !!"+\
-             "\n       Please check your choice of separator is correct and that you don't have strange fields in you FinalReport file!")
+        bomb("Probable error in the separator.. Position of Allele2 found in "+alle_pos2+", but length of line in row "+en+" is "+len(line)+" !!"+
+             "Please check your choice of separator is correct and that you don't have strange fields in you FinalReport file!")
     snp_name=line[int(SNPid_pos)-1]
     id_sample=line[int(INDid_pos)-1]
     alle1=line[alle_pos1]
@@ -133,30 +136,30 @@ for en,a in enumerate(open(finrep)):
         snp=0
         anim+=1
         outped.write('%s %s 0 0 0 -9 %s\n' % (brdcode,name[anim],' '.join(geno)))
-        print 'Finshed processing individual:',name[anim],' - Total SNPs:',len(geno)
+        print('Finshed processing individual:',name[anim],' - Total SNPs:',len(geno))
         geno=[]
         geno.append(alle1+' '+alle2)
         name.append(id_sample)
 
 outped.write('%s %s 0 0 0 -9 %s\n' % (brdcode,id_sample,' '.join(geno)))
 anim+=2
-print 'Finshed processing individual:',id_sample,' - Total SNPs:',len(geno)
-print '====> Total number of INDIVIDUALS processed:',anim 
-print 
-print "### Processing SNPmap file"
+print('Finshed processing individual:',id_sample,' - Total SNPs:',len(geno))
+print('====> Total number of INDIVIDUALS processed:',anim )
+print()
+print("### Processing SNPmap file")
 
 conv={}
 for a in open(snpmap):
     if 'Chromosome' in a:continue
     nn,snpid,cro,pos,rest=a.strip().split(sep,4)
     conv[snpid]=(cro,pos)
-print "====> Total number of SNPs processed:",len(conv)
-print
-print "### Writing output map file"
+print("====> Total number of SNPs processed:",len(conv))
+print()
+print("### Writing output map file")
 for x in SNPname:
     if not conv.has_key(x): bomb("SNP: "+x+" in FinalReport is not present in SNP map!!!")
     outmap.write('%s %s 0 %s\n' % (conv[x][0],x,conv[x][1]))
-print "====> PED FILE PRODUCED: "+outname+'.ped'
-print "====> MAP FILE PRODUCED: "+outname+'.map'
+print("====> PED FILE PRODUCED: "+outname+'.ped')
+print("====> MAP FILE PRODUCED: "+outname+'.map')
 print
-print "BAZINGA! I'm done!"
+print("BAZINGA! I'm done!")
