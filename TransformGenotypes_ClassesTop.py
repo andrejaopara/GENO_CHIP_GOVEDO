@@ -76,12 +76,11 @@ ZanDir = "/home/jana/Genotipi/TransformGeno/Zanardi/"
 CodeDir = "/home/jana/Genotipi/TransformGeno/"
 DownloadDir = "/home/jana/Downloads/"
 
-# File with a list of 800 SNPs for parentage verification
-SNP800 = "/home/jana/Genotipi/ParentalVerification_SNPSNP/Names_800SNPs.txt"
+
 # file with IDs and seq for the animals
 Breed_IDSeq = "/home/jana/Genotipi/TransformGeno/" + pasma + "_seq_ID.csv"
-# SNP coding
-SNPSifrant = "/home/jana/Genotipi/ParentalVerification_SNPSNP/Sifrant_SNP.csv"
+Mesne_IDSeq = "/home/jana/Genotipi/TransformGeno/Mesne_seq_ID.csv"
+
 
 # name of the file
 zipPackage = zip_file
@@ -119,6 +118,12 @@ with open(Breed_IDSeq, 'rt') as IDSeq:
     for line in reader:
         Breed_IDSeq_Dict[line[0]] = line[1:]
 
+Mesne_IDSeq_Dict = defaultdict()
+with open(Mesne_IDSeq, 'rt') as IDSeq:
+    reader = csv.reader(IDSeq, delimiter=',')
+    for line in reader:
+        Mesne_IDSeq_Dict[line[0]] = line[1:]
+
 ############################################################################################################
 #############################################################################################################
 # create a directory with the current date for temp genotype manipulation
@@ -136,10 +141,10 @@ onePackage.extractFinalReport()
 onePackage.extractSNPMap()
 onePackage.extractSampleMap()
 
-print(onePackage.name)
-print(onePackage.snpmapname)
-print(onePackage.samplemapname)
-print(onePackage.finalreportname)
+print("Name of the package is: " + onePackage.name)
+print("Name of the SNPmap is: " + onePackage.snpmapname)
+print("Name of the Sample Map is: " + onePackage.samplemapname)
+print("Name of the FinalReport is: " + onePackage.finalreportname)
 
 # try:
 #     os.system("sed -i '/^[[:space:]]*$/d' " + onePackage.finalreportname)
@@ -147,6 +152,7 @@ print(onePackage.finalreportname)
 #     pass
 
 # check for error IDs and replace the prior identified errouneous IDs
+print("Obtaining spurious IDs")
 replaceIDs = open(CodeDir + "/ErrorIDs_genotipi.txt").read().strip().split("\n")
 replaceIDs = [tuple(replaceIDs[x].split(",")) for x in range(len(replaceIDs))]
 errorIDs = onePackage.extractErrorNames()  # extract Sample Names if they exist - they shouldnt be in the file
@@ -155,8 +161,10 @@ errorIDs = onePackage.extractErrorNames()  # extract Sample Names if they exist 
 rID = [x for (x,y) in replaceIDs]
 errorIDs = [(x, y) for (x, y) in errorIDs if str(x) not in rID]
 errorIDs = errorIDs + replaceIDs
+print("Spurious IDs are: ")
+print(errorIDs)
 
-
+print("Replacing spurious IDs")
 if errorIDs:
     s = open(onePackage.samplemapname).read()
     sF = open(onePackage.finalreportname).read()
@@ -174,6 +182,7 @@ if errorIDs:
     print("Successfully updated FinalReport and SampleMap.")
 
 # copy pedda.param and python script to the current directory
+print("Preparing peddar.param parameter file")
 shutil.copy((peddarow + "/peddar.param"), "peddar.param")
 shutil.copy((peddarow + "/pedda_row.py"), "pedda_row.py")
 # replace strings with shell command
@@ -205,6 +214,7 @@ os.system("python2.7 pedda_row.py")  # transform into ped and map file
 
 # create a new zip file with corrected error names
 # shutil.move(onePackage.name+'_Sample_Map.txt', 'Sample_Map.txt') #rename extracted SampleMap
+print("Adding correct files to .zip")
 with zipfile.ZipFile(onePackage.name + '_FinalReport.zip', 'w', zipfile.ZIP_DEFLATED) as myzip:
     myzip.write(onePackage.finalreportname)  # create new FinalReport zip
 with zipfile.ZipFile(onePackage.name + '_Sample_Map.zip', 'w', zipfile.ZIP_DEFLATED) as myzip:
@@ -228,6 +238,7 @@ pedfilename = onePackage.name.split("/")[-1]
 mapfile = GenFiles.mapFile(onePackage.name + '.map')
 
 # Perform QC!
+print("Peforming QC")
 os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip)
 PedFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
 MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.map")
@@ -248,6 +259,16 @@ for i in pedfile.samples:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
         notFound.append(i)
 
+Mesne = defaultdict()
+#prečekiraj, če maš cike
+for i in notFound:
+    if i in Mesne_IDSeq_Dict:
+        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, pedfile.chip, date]
+        print("MESNE PASME FOUND!!!")
+    else:
+        print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
+
+
 ################################################################################################
 ###############################################################################################
 # END OF THE LOOP
@@ -258,6 +279,7 @@ for i in pedfile.samples:
 ###############################################################################################
 print("The number of genotyped animals is {}.".format(len(pedfile.samples)))
 print("The number of found IDs in {}".format(len(SampleIDs)))
+print("The number of found Mesne IDs in {}".format(len(Mesne)))
 print("The number of genotype packages (different date of genotyping) is {}.".format(len(DateGenotyped)))
 print("The number of different genotyping chips is {0}: {1}.".format(len(PedFiles), PedFiles.keys()))
 
@@ -271,8 +293,26 @@ imiss = pd.read_csv(tempDir + pedfile.name + "_" + pedfile.chip + ".imiss", sep=
 imiss.columns = ['ID', "F_MISS"]
 Tabela = pd.merge(GenotypedInd, imiss, on="ID")
 Tabela.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoInd.csv', sep=",", index=False)
-print("Created table for Govedo.")
-#
+print("Created table for Govedo: " + pasma)
+
+if Mesne:
+    MesneGenotypedInd = pd.DataFrame.from_dict(Mesne, orient='index', dtype=None)
+    MesneGenotypedInd.columns = ['ID', 'ZIV_ID_SEQ', 'GenoDate', 'Chip', 'DownloadDate']
+    imiss = pd.read_csv(tempDir + pedfile.name + "_" + pedfile.chip + ".imiss", sep="\s+")[["IID", "F_MISS"]]
+    imiss.columns = ['ID', "F_MISS"]
+    MesneTabela = pd.merge(MesneGenotypedInd, imiss, on="ID")
+    MesneTabela.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoInd_Mesne.csv', sep=",", index=False)
+    print("Created MESNE table for Govedo.")
+    #
+
+#Extract and remove mesne pasme
+if Mesne:
+    pd.DataFrame({0: pasma, 1: list(Mesne.keys())}).to_csv("MesneIndiv.txt", header=None, sep=" ", index = None)
+    #extract
+    os.system("plink --file " + pedfile.name + " --cow --keep MesneIndiv.txt --recode --out MesnePasme_" + str(date))
+    os.system("sed -i 's/" + pasma + "/Mesne/g' MesnePasme_" + str(date) + ".ped")
+    #remove
+    os.system("plink --file " + pedfile.name + " --cow --remove MesneIndiv.txt --recode --out " + pedfile.name)
 
 
 if merge_ask == "Y":
