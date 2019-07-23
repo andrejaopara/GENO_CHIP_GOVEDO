@@ -67,10 +67,6 @@ peddarow = "/home/jana/Genotipi/TransformGeno/SNPchimpRepo/source_codes/PEDDA_RO
 Zip_lat = "/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/" + pasma + "/Top/ZipGenoFiles/"
 # Zip_lat="/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/Rjava/Zip/"
 PLINKDIR = '/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
-# PLINKDIR="/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/" + pasma + "/Top/"
-# Genotipi_latest directory - sploh ni v uporabi kasneje v skriptu
-# Gen_lat = "/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/"+pasma+"/"
-# PLINKDIR = "/run/user/1000/gvfs/smb-share:server=kis-h2.si,share=kisdfs/ZIV/vol1/ZIV/VSI/JanaO/Genotipi/TopPLINK/"
 # path to Zanardi
 ZanDir = "/home/jana/Genotipi/TransformGeno/Zanardi/"
 CodeDir = "/home/jana/Genotipi/TransformGeno/"
@@ -93,7 +89,7 @@ zipPackage = zip_file
 
 # create a dictionary of the number of SNPs and corresponding chip names
 chips = GenFiles.chips
-SNP800Sifrant_Dict = GenFiles.SNP800Sifrant_Dict
+
 
 GenoFile = defaultdict(set)
 SampleIDs = defaultdict(list)
@@ -106,9 +102,7 @@ AllInfo = []
 DateDownloaded = defaultdict(list)
 DateGenotyped = defaultdict(list)
 
-# list to hold the SNP800 files produced in the run
-SNP800_Peds = []
-SNP800_Maps = []
+
 
 # read in animal ID / Seq / DateOfBirth / SexCode table
 # create a dictionary
@@ -272,7 +266,6 @@ for i in notFound:
 ################################################################################################
 ###############################################################################################
 # END OF THE LOOP
-# merge produced SNP800 files
 # merge ped files if merge_ask = Y
 # create table for govedo
 #############################################################################################
