@@ -18,6 +18,7 @@ from collections import defaultdict
 import csv
 import GenFiles
 import subprocess
+import commands
 import tempfile
 import pandas as pd
 
@@ -164,8 +165,8 @@ if errorIDs:
     sF = open(onePackage.finalreportname).read()
 
     for i in errorIDs:
-        s = s.replace(str(i[0]), str(i[1]))
-        sF = sF.replace(str(i[0]), str(i[1]))
+        s = s.replace('\t' + str(i[0]), '\t' + str(i[1]))
+        sF = sF.replace('\t' + str(i[0]), '\t' + str(i[1]))
 
     f = open(onePackage.samplemapname, 'w')
     f.write(s)
@@ -233,6 +234,7 @@ mapfile = GenFiles.mapFile(onePackage.name + '.map')
 
 # Perform QC!
 print("Peforming QC")
+
 os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip)
 PedFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
 MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.map")
@@ -275,6 +277,7 @@ print("The number of found IDs in {}".format(len(SampleIDs)))
 print("The number of found Mesne IDs in {}".format(len(Mesne)))
 print("The number of genotype packages (different date of genotyping) is {}.".format(len(DateGenotyped)))
 print("The number of different genotyping chips is {0}: {1}.".format(len(PedFiles), PedFiles.keys()))
+pd.DataFrame({"ID": list(set(pedfile.samples) ^ set(SampleIDs))}).to_csv("NotFoundIDs.csv", index=None)
 
 # Perform QC!!!
 
@@ -336,7 +339,7 @@ if merge_ask == "Y":
                 writer = csv.writer(csvfile, delimiter=" ")
                 [writer.writerow(r) for r in zip(PedFiles[i], MapFiles[i])]
 
-        status, output = subprocess.getstatusoutput(mergeChipCommand)  # merge with plink
+        status, output = commands.getstatusoutput(mergeChipCommand)  # merge with plink
 
         if status == 0:
             print

@@ -21,7 +21,10 @@ chips = {19720: "GGPv02",
 51274: "IDBv03",
 52445: "IDBv03",
 49629: "Versa50K",
-49702: "Versa50K"
+49702: "Versa50K",
+49706: "Versa50K",
+49718: "Versa50K",
+49740: "Versa50K"
          }
 
 TraitSNPs = {
@@ -52,7 +55,7 @@ class genZipPackage:
     def __init__(self, zipDatoteka):
         self.zipFile=zipfile.ZipFile(zipDatoteka)
         self.zipname=zipDatoteka
-        self.name=zipDatoteka.strip(".zip")
+        self.name=zipDatoteka.strip(".zip").strip(".ZIP")
         self.sernum=zipDatoteka.strip(".zip").strip('Matija_Rigler_')
         self.genodate=str([i for i in re.findall('\d+', self.zipname) if '2013' in i or '2014' in i or '2015' in i or '2017'
                        in i or '2018' in i or '2016' in i or '2019' in i][0])
@@ -70,7 +73,12 @@ class genZipPackage:
                 self.zipFile.extract(self.finalreportname)
                 zipfile.ZipFile(self.finalreportname).extractall()
                 os.remove(os.getcwd()+'/'+self.finalreportname)
-                shutil.move(self.finalreportname.strip(".zip") + ".txt", self.name + '_FinalReport.txt')
+                if "/" in self.finalreportname:
+                    frn = self.finalreportname.split("/")[1]
+                    shutil.move(frn.strip(".zip") + ".txt", self.name + '_FinalReport.txt')
+                else:
+                    shutil.move(self.finalreportname.strip(".zip") + ".txt", self.name + '_FinalReport.txt')
+
                 self.oldfinalreportname = self.finalreportname
                 self.finalreportname = self.name + '_FinalReport.txt'
             else:
@@ -87,7 +95,11 @@ class genZipPackage:
                 self.zipFile.extract(self.samplemapname)
                 zipfile.ZipFile(self.samplemapname).extractall()
                 #os.remove(self.samplemapname)
-                shutil.move(self.samplemapname.strip("zip") + "txt", self.name+'_Sample_Map.txt')
+                if "/" in self.samplemapname:
+                    frn = self.samplemapname.split("/")[1]
+                    shutil.move(frn.strip(".zip") + ".txt", self.name + '_Sample_Map.txt')
+                else:
+                    shutil.move(self.samplemapname.strip("zip") + "txt", self.name+'_Sample_Map.txt')
                 self.oldsamplemapname = self.samplemapname
                 self.samplemapname = self.name + '_Sample_Map.txt'
             else:
@@ -120,18 +132,19 @@ class genZipPackage:
             names=sampleTable['ID']
             errornames=[]
             for i in names:
-                if i.isdigit() and len(i) == 7 and i[0] != 0:
+                if str(i).isdigit() and len(str(i)) == 7 and str(i)[0] != 0:
                     errornames.append((i, "SI0" + str(i)))
-                if i.isdigit() and len(i) == 8:
+                if str(i).isdigit() and len(str(i)) == 8:
                     errornames.append((int(i), 'SI'+str(i)))
-                if i.find("  ") != -1:
-                    a = i.replace("  ", " ")
+                if str(i).find("  ") != -1:
+                    a = str(i).replace("  ", " ")
                 #
-                #    if a.find(" ") != -1:
-                #        errornames.append((i,( "".join(a.split(" ")[0:2]))))
-                #if i.find("  ") == -1 and i.find(" ") != -1 and "SI" in i:
-                #    errornames.append((i, "".join(i.split(" ")[:2])))
-                if '(' in i or ')' in i:
+                #     if a.find(" ") != -1:
+                #         errornames.append((i,( "".join(a.split(" ")[0:2]))))
+                # if i.find("  ") == -1 and i.find(" ") != -1 and "SI" in i:
+                #     errornames.append((i, "".join(i.split(" ")[:2])))
+                    #
+                if '(' in str(i) or ')' in str(i):
                     pass
             return errornames
         else:
@@ -144,7 +157,11 @@ class genZipPackage:
                 self.zipFile.extract(self.snpmapname)
                 zipfile.ZipFile(self.snpmapname).extractall()
                 #os.remove(self.snpmapname)
-                shutil.move(self.snpmapname.strip("zip") + "txt", self.name + '_SNP_Map.txt')
+                if "/" in self.snpmapname:
+                    frn = self.snpmapname.split("/")[1]
+                    shutil.move(frn.strip(".zip") + ".txt", self.name + '_SNP_Map.txt')
+                else:
+                    shutil.move(self.snpmapname.strip("zip") + "txt", self.name + '_SNP_Map.txt')
             else:
                 self.zipFile.extract(self.snpmapname)
                 shutil.move(self.snpmapname, self.name + '_SNP_Map.txt')

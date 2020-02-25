@@ -1,0 +1,17 @@
+PLINK v1.90b3.36 64-bit (31 Mar 2016)
+Options in effect:
+  --cow
+  --file orig1075_05052017_IDBv03_IDBv03_CleanInds
+  --geno 0.10
+  --out orig1075_05052017_IDBv03_IDBv03_CleanIndsMarkers
+  --recode
+
+Hostname: zivkis1701
+Working directory: /home/jana/Genotipi/TransformGeno
+Start time: Tue Nov 19 15:20:04 2019
+
+Random number seed: 1574173204
+32083 MB RAM detected; reserving 16041 MB for main workspace.
+Error: Failed to open orig1075_05052017_IDBv03_IDBv03_CleanInds.map.
+
+End time: Tue Nov 19 15:20:04 2019
