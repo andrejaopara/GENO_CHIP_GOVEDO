@@ -1,8 +1,0 @@
-SELECT ziv.DRZ_ORIG_ZIVAL
-  || ziv.STEV_ORIG_ZIVAL "ID_ZIVALI",
-  ziv.ZIV_ID_SEQ,
-  ziv.DAT_ROJSTVO,
-  ziv.SIF_SPOL
-FROM zivali ziv
-WHERE ziv.SP1_SIFRA_PASMA =1 or ziv.SP1_SIFRA_PASMA=9;
-
