@@ -194,6 +194,8 @@ os.system(
 os.system('sed -i "s/TEST/' + pasma + '/g" peddar.param')
 os.system("python2.7 pedda_row.py")  # transform into ped and map file
 
+
+
 # #ABFORMAT
 # shutil.copy((peddarow+"/peddar.param"), "peddar.param")
 # shutil.copy((peddarow+"/pedda_row.py"), "pedda_row.py")
@@ -227,10 +229,18 @@ with zipfile.ZipFile(onePackage.zipname, 'a', zipfile.ZIP_DEFLATED) as z:
 
 
 # make pedfile a GenFiles pedFile object
-# make pedfile a GenFiles pedFile object
 pedfile = GenFiles.pedFile(onePackage.name + '.ped')
-pedfilename = onePackage.name.split("/")[-1]
 mapfile = GenFiles.mapFile(onePackage.name + '.map')
+#rename the .ped and .map to include the number of SNPs
+plinkfilename = onePackage.name.split("/")[-1] + "-" + str(len(pedfile.snps))
+os.rename(onePackage.name + ".ped", plinkfilename + ".ped")
+os.rename(onePackage.name + ".map", plinkfilename + ".map")
+# make pedfile a GenFiles pedFile object
+pedfile = GenFiles.pedFile(plinkfilename + ".ped")
+mapfile = GenFiles.mapFile(plinkfilename + ".map")
+
+
+
 
 # Perform QC!
 print("Peforming QC")
@@ -250,7 +260,7 @@ AllInfo += [(x, pedfile.chip, pedfile.name, onePackage.genodate) for x in (pedfi
 notFound = []
 for i in pedfile.samples:
     if i in Breed_IDSeq_Dict:
-        SampleIDs[i] = [i, Breed_IDSeq_Dict.get(i)[0], onePackage.genodate, pedfile.chip, date]
+        SampleIDs[i] = [i, Breed_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(pedfile.snps)), date]
     else:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
         notFound.append(i)
@@ -259,7 +269,7 @@ Mesne = defaultdict()
 #prečekiraj, če maš cike
 for i in notFound:
     if i in Mesne_IDSeq_Dict:
-        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, pedfile.chip, date]
+        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(pedfile.snps)), date]
         print("MESNE PASME FOUND!!!")
     else:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")

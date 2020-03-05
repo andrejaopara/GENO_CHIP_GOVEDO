@@ -128,7 +128,7 @@ class genZipPackage:
             #os.system('sed -i "s|SI  |SI|g" ' + self.name+'_Sample_Map.txt') #remove double spacing
             #os.system('sed -i "s|SI |SI|g" ' + self.name+'_Sample_
             # Map.txt') #remove space in sample IDs
-            sampleTable = pd.read_csv(self.samplemapname, sep="\t")
+            sampleTable = pd.read_table(self.samplemapname, sep="\t")
             names=sampleTable['ID']
             errornames=[]
             for i in names:
