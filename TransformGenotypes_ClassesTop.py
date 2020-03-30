@@ -61,22 +61,31 @@ if action == 'Y':
 # ask whether you want to remove original zip
 rmOriginalZip = raw_input('Remove original zip? [Y/N] ')
 # create directory path to hold current temp genotype files within Genotipi_DATA and breed directory
-tempDir = "/home/jana/Genotipi/Genotipi_DATA/" + pasma + "_TEMP/Genotipi_" + str(date) + "/"
+#tempDir = "/home/jana/Genotipi/Genotipi_DATA/" + pasma + "_TEMP/Genotipi_" + str(date) + "/"
+tempDir = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/" + pasma + "_TEMP/Genotipi_" + str(date) + "/"
 # PEDDAROW directory
-peddarow = "/home/jana/Genotipi/TransformGeno/SNPchimpRepo/source_codes/PEDDA_ROW/"
+#peddarow = "/home/jana/Genotipi/TransformGeno/SNPchimpRepo/source_codes/PEDDA_ROW/"
+peddarow = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO"
 # Zip latest
-Zip_lat = "/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/" + pasma + "/Top/ZipGenoFiles/"
+Zip_lat = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/" + pasma + "/Top/ZipGenoFiles/"
+#Zip_lat = "/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/" + pasma + "/Top/ZipGenoFiles/"
 # Zip_lat="/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/Rjava/Zip/"
-PLINKDIR = '/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
+#PLINKDIR = '/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
+PLINKDIR = '/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
 # path to Zanardi
-ZanDir = "/home/jana/Genotipi/TransformGeno/Zanardi/"
-CodeDir = "/home/jana/Genotipi/TransformGeno/"
-DownloadDir = "/home/jana/Downloads/"
+ZanDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/Zanardi/"
+CodeDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO"
+DownloadDir = "/home/andreja/Downloads"
+#ZanDir = "/home/jana/Genotipi/TransformGeno/Zanardi/"
+#CodeDir = "/home/jana/Genotipi/TransformGeno/"
+#DownloadDir = "/home/jana/Downloads/"
 
 
 # file with IDs and seq for the animals
-Breed_IDSeq = "/home/jana/Genotipi/TransformGeno/" + pasma + "_seq_ID.csv"
-Mesne_IDSeq = "/home/jana/Genotipi/TransformGeno/Mesne_seq_ID.csv"
+Breed_IDSeq = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/" + pasma + "_seq_ID.csv"
+Mesne_IDSeq = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/Mesne_seq_ID.csv"
+#Breed_IDSeq = "/home/jana/Genotipi/TransformGeno/" + pasma + "_seq_ID.csv"
+#Mesne_IDSeq = "/home/jana/Genotipi/TransformGeno/Mesne_seq_ID.csv"
 
 
 # name of the file
@@ -260,7 +269,8 @@ AllInfo += [(x, pedfile.chip, pedfile.name, onePackage.genodate) for x in (pedfi
 notFound = []
 for i in pedfile.samples:
     if i in Breed_IDSeq_Dict:
-        SampleIDs[i] = [i, Breed_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(pedfile.snps)), date]
+        SampleIDs[i] = [i, Breed_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(len(pedfile.snps))), date]
+
     else:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
         notFound.append(i)
@@ -269,7 +279,7 @@ Mesne = defaultdict()
 #prečekiraj, če maš cike
 for i in notFound:
     if i in Mesne_IDSeq_Dict:
-        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(pedfile.snps)), date]
+        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(len(pedfile.snps))), date]
         print("MESNE PASME FOUND!!!")
     else:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")

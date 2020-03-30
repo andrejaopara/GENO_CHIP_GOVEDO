@@ -24,7 +24,8 @@ chips = {19720: "GGPv02",
 49702: "Versa50K",
 49706: "Versa50K",
 49718: "Versa50K",
-49740: "Versa50K"
+49740: "Versa50K",
+6909: "IlluminaLD"
          }
 
 TraitSNPs = {
@@ -33,7 +34,7 @@ TraitSNPs = {
 'KappaCasein': ['GNSC319','GNSC319_3','GNSC319_B1','GNSC355','GNSC355_3','GNSC355_B1','KappaCasein12951_1','KappaCasein12951_2','KappaCasein12951_3'],
 'Citrulinemia':[]}
 
-Parental800=open("/home/jana/Genotipi/ParentalVerification_SNPSNP/Names_800SNPs.txt").read().strip("\n").split("\n")
+Parental800=open("/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/800_SNP_McClure.txt").read().strip("\n").split("\n")
 
 
 
