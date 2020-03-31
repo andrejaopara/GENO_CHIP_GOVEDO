@@ -52,12 +52,10 @@ pasma = raw_input("Enter the breed [Rjava/Crnobela/Lisasta]: ")
 AlleleFormat = raw_input("Enter the desired allele coding [top / forward / ab]: ")
 zip_file = raw_input("Enter the name of the downloaded zip file: ")
 merge_ask = raw_input("Do you want to merge newly downloaded genotypes to the Latest Genotypes files (by chip)? [Y/N] ")
+sort_finalReport = raw_input("Do you want to sort the FinalReport file? [Y/N]")
 
 # ask what action does the user want to perform
-# action = raw_input("Do you want to extract SNPs for parental verification  [Y/N] ")
-action = 'N'
-if action == 'Y':
-    PVSNPs = input("How many SNPs would you like to use for parental verification? ")
+parentageTest = raw_input("Do you want to extract SNPs for parental verification?  [Y/N] ")
 # ask whether you want to remove original zip
 rmOriginalZip = raw_input('Remove original zip? [Y/N] ')
 # create directory path to hold current temp genotype files within Genotipi_DATA and breed directory
@@ -144,6 +142,9 @@ onePackage = GenFiles.genZipPackage(zipPackage)
 onePackage.extractFinalReport()
 onePackage.extractSNPMap()
 onePackage.extractSampleMap()
+
+if sort_finalReport == "Y":
+    os.system("bash SortFinalReport.sh " + onePackage.finalreportname)
 
 print("Name of the package is: " + onePackage.name)
 print("Name of the SNPmap is: " + onePackage.snpmapname)
@@ -251,12 +252,18 @@ mapfile = GenFiles.mapFile(plinkfilename + ".map")
 
 
 
+
 # Perform QC!
 print("Peforming QC")
 
 os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip)
 PedFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
 MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.map")
+
+if parentageTest == 'Y':
+    pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
+    pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt")
+    pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt")
 
 # add file to the dictionary of chip files
 PedFiles[pedfile.chip].append(tempDir + pedfile.pedname)

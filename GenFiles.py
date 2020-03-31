@@ -192,7 +192,6 @@ class pedFile:
         self.pedname=pedDatoteka
         self.name=pedDatoteka.strip(".ped")
         self.pedContent=open(pedDatoteka).read().strip("\n").split("\n") #here don't read it in as panda table since it takes much longer
-        self.pedContent=open(pedDatoteka).read().strip("\n").split("\n") #here don't read it in as panda table since it takes much longer
         self.samples=[line.split(" ")[1] for line in self.pedContent]
         self.mapContent=open(pedDatoteka.strip(".ped") + ".map").read().strip("\n").split("\n")
         try:
@@ -203,11 +202,16 @@ class pedFile:
             self.chip=chips[(len(self.pedContent[0].split(" "))-6)/2]
         except: 
             self.chip = len(self.snps)
+        #sort ped file by Individuals
         
     
     def extractSNP(self, SNP):
         os.system("plink --file " + self.name + " --cow --extract-snp "+ SNP + " --recode --out " + SNP)
-        
+
+    def extractNamedSnpList(self, SNPList):
+        os.system("plink --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
+                  self.pedname + "_" + SNPList.strip(".txt").strip(".csv"))
+
     def extractSNPList(self, SNPList):
         if "SNPList.txt" in os.listdir(os.getcwd()):
             overwrite=raw_input("Existing SNPList.txt file in the current working directory.\
