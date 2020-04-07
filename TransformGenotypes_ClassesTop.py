@@ -144,7 +144,7 @@ onePackage.extractSNPMap()
 onePackage.extractSampleMap()
 
 if sort_finalReport == "Y":
-    os.system("bash SortFinalReport.sh " + onePackage.finalreportname)
+    os.system("bash " + CodeDir + "/SortFinalReport.sh " + onePackage.finalreportname + " " + CodeDir)
 
 print("Name of the package is: " + onePackage.name)
 print("Name of the SNPmap is: " + onePackage.snpmapname)
