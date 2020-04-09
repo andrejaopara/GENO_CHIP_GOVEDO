@@ -206,8 +206,10 @@ class pedFile:
     def extractSNP(self, SNP):
         os.system("plink --file " + self.name + " --cow --extract-snp "+ SNP + " --recode --out " + SNP)
 
-    def extractNamedSnpList(self, SNPList):
-        os.system("plink --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
+    def extractNamedSnpList(self, SNPList, plinkDir):
+        print(plinkDir + " --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
+                  self.pedname + "_" + SNPList.strip(".txt").strip(".csv"))
+        os.system(plinkDir + " --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
                   self.pedname + "_" + SNPList.strip(".txt").strip(".csv"))
 
     def extractSNPList(self, SNPList):

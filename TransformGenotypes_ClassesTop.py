@@ -70,6 +70,7 @@ Zip_lat = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/" + pa
 # Zip_lat="/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/Rjava/Zip/"
 #PLINKDIR = '/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
 PLINKDIR = '/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
+plinkSoftware = 'VPISI/SVOJO/PLINK/POT' #naj bo pot/karkoliže/plink
 # path to Zanardi
 ZanDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/Zanardi/"
 CodeDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO"
@@ -256,14 +257,15 @@ mapfile = GenFiles.mapFile(plinkfilename + ".map")
 # Perform QC!
 print("Peforming QC")
 
-os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip)
+os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware)
 PedFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
 MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.map")
 
 if parentageTest == 'Y':
+    print("Extracting SNPs for parentage testing")
     pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
-    pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt")
-    pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt")
+    pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt", plinkSoftware)
+    pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt", plinkSoftware)
 
 # add file to the dictionary of chip files
 PedFiles[pedfile.chip].append(tempDir + pedfile.pedname)
@@ -332,10 +334,10 @@ if Mesne:
 if Mesne:
     pd.DataFrame({0: pasma, 1: list(Mesne.keys())}).to_csv("MesneIndiv.txt", header=None, sep=" ", index = None)
     #extract
-    os.system("plink --file " + pedfile.name + " --cow --keep MesneIndiv.txt --recode --out MesnePasme_" + str(date))
+    os.system(plinkSoftware + " --file " + pedfile.name + " --cow --keep MesneIndiv.txt --recode --out MesnePasme_" + str(date))
     os.system("sed -i 's/" + pasma + "/Mesne/g' MesnePasme_" + str(date) + ".ped")
     #remove
-    os.system("plink --file " + pedfile.name + " --cow --remove MesneIndiv.txt --recode --out " + pedfile.name)
+    os.system(plinkSoftware + " --file " + pedfile.name + " --cow --remove MesneIndiv.txt --recode --out " + pedfile.name)
 
 
 if merge_ask == "Y":
@@ -353,14 +355,14 @@ if merge_ask == "Y":
         pedToMerge = ",".join(PedFiles[i]).strip("'")
         mapToMerge = ",".join(MapFiles[i]).strip("'")
         if not os.path.isfile(PLINKDIR + i + '/PLINK_MERGED.ped'):
-            mergeChipCommand = "plink --file {0} --cow --merge-list {1} --recode --out PLINK_MERGED".format(
+            mergeChipCommand = plinkSoftware + " --file {0} --cow --merge-list {1} --recode --out PLINK_MERGED".format(
                 (PedFiles[i][0].strip(".ped")), 'MergeChip.txt')
             with open('MergeChip.txt', 'w') as csvfile:
                 writer = csv.writer(csvfile, delimiter=" ")
                 [writer.writerow(r) for r in
                  zip(PedFiles[i][1:], MapFiles[i][1:])]  # leave the first one out - that goes in the plink command line
         if os.path.isfile(PLINKDIR + i + '/PLINK_MERGED.ped'):
-            mergeChipCommand = "plink --file PLINK_MERGED --cow --merge-list {0} --recode --out PLINK_MERGED".format(
+            mergeChipCommand = plinkSoftware + " --file PLINK_MERGED --cow --merge-list {0} --recode --out PLINK_MERGED".format(
                 'MergeChip.txt')
             with open('MergeChip.txt', 'w') as csvfile:
                 writer = csv.writer(csvfile, delimiter=" ")
