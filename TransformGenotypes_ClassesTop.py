@@ -264,8 +264,8 @@ MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_
 if parentageTest == 'Y':
     print("Extracting SNPs for parentage testing")
     pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanInds.ped")
-    pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt", plinkSoftware)
-    pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt", plinkSoftware)
+    pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt", "196." + pedfile.chip, "-", str(len(pedfile.snps)), plinkSoftware)
+    pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt", "554." + pedfile.chip, "-", str(len(pedfile.snps)), plinkSoftware)
 
 # add file to the dictionary of chip files
 PedFiles[pedfile.chip].append(tempDir + pedfile.pedname)
