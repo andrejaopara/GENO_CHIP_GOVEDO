@@ -70,7 +70,7 @@ Zip_lat = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/" + pa
 # Zip_lat="/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/Rjava/Zip/"
 #PLINKDIR = '/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
 PLINKDIR = '/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
-plinkSoftware = 'VPISI/SVOJO/PLINK/POT' #naj bo pot/karkoliže/plink
+plinkSoftware = '~/bin/plink_linux_1.9_x86_64/plink' #naj bo pot/karkoliže/plink
 # path to Zanardi
 ZanDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/Zanardi/"
 CodeDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO"
@@ -263,7 +263,7 @@ MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_
 
 if parentageTest == 'Y':
     print("Extracting SNPs for parentage testing")
-    pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
+    pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanInds.ped")
     pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt", plinkSoftware)
     pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt", plinkSoftware)
 
