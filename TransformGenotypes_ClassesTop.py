@@ -47,17 +47,19 @@ def remove_from_zip(zipfname, *filenames):
 # zip_file="we_mr_19042018_IDB191.zip"
 # merge_ask='N'
 # Ask the user for the current date (date of download) and breed
-date = raw_input("Enter the date (today): ")
-pasma = raw_input("Enter the breed [Rjava/Crnobela/Lisasta]: ")
-AlleleFormat = raw_input("Enter the desired allele coding [top / forward / ab]: ")
-zip_file = raw_input("Enter the name of the downloaded zip file: ")
-merge_ask = raw_input("Do you want to merge newly downloaded genotypes to the Latest Genotypes files (by chip)? [Y/N] ")
-sort_finalReport = raw_input("Do you want to sort the FinalReport file? [Y/N]")
+date = raw_input("Vnesi datum [danes, brez presledkov]: ")
+pasma = raw_input("Vnesi pasmo [Rjava/Crnobela/Lisasta]: ")
+AlleleFormat = raw_input("Vnesi način kodiranja alelov [top / forward / ab]: ")
+Origin = raw_input("Vnesi vir [1-100]")
+zip_file = raw_input("Vnesi ime zip datoteke z genotipi: ")
+merge_ask = raw_input("Ali hočeš genotipe združiti s prejšnjimi genotipi (po čipu)? [Y/N] ")
+sort_finalReport = raw_input("Ali hočeš sortirat FinalReport datoteko? [Y/N]")
+
 
 # ask what action does the user want to perform
-parentageTest = raw_input("Do you want to extract SNPs for parental verification?  [Y/N] ")
+parentageTest = raw_input("Ali hočeš izvleči SNP-e za preverjanje starševstva?  [Y/N] ")
 # ask whether you want to remove original zip
-rmOriginalZip = raw_input('Remove original zip? [Y/N] ')
+rmOriginalZip = raw_input('Odstranim originalno zip datoteko? [Y/N] ')
 # create directory path to hold current temp genotype files within Genotipi_DATA and breed directory
 #tempDir = "/home/jana/Genotipi/Genotipi_DATA/" + pasma + "_TEMP/Genotipi_" + str(date) + "/"
 tempDir = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/" + pasma + "_TEMP/Genotipi_" + str(date) + "/"
@@ -264,8 +266,8 @@ MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_
 if parentageTest == 'Y':
     print("Extracting SNPs for parentage testing")
     pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanInds.ped")
-    pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt", "196." + pedfile.chip, "-", str(len(pedfile.snps)), plinkSoftware)
-    pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt", "554." + pedfile.chip, "-", str(len(pedfile.snps)), plinkSoftware)
+    pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt", "196." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
+    pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt", "554." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
 
 # add file to the dictionary of chip files
 PedFiles[pedfile.chip].append(tempDir + pedfile.pedname)
@@ -278,7 +280,7 @@ AllInfo += [(x, pedfile.chip, pedfile.name, onePackage.genodate) for x in (pedfi
 notFound = []
 for i in pedfile.samples:
     if i in Breed_IDSeq_Dict:
-        SampleIDs[i] = [i, Breed_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(len(pedfile.snps))), date]
+        SampleIDs[i] = [i, Breed_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(len(pedfile.snps))), date, Origin]
 
     else:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
@@ -288,7 +290,7 @@ Mesne = defaultdict()
 #prečekiraj, če maš cike
 for i in notFound:
     if i in Mesne_IDSeq_Dict:
-        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(len(pedfile.snps))), date]
+        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(len(pedfile.snps))), date, Origin]
         print("MESNE PASME FOUND!!!")
     else:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
@@ -313,11 +315,18 @@ pd.DataFrame({"ID": list(set(pedfile.samples) ^ set(SampleIDs))}).to_csv("NotFou
 # #create a table of individuals for govedo
 # #columns are seq, chip, date genotyped
 GenotypedInd = pd.DataFrame.from_dict(SampleIDs, orient='index', dtype=None)
-GenotypedInd.columns = ['ID', 'ZIV_ID_SEQ', 'GenoDate', 'Chip', 'DownloadDate']
+GenotypedInd.columns = ['ID', 'ZIV_ID_SEQ', 'GenoDate', 'Chip', 'DownloadDate', 'Namen']
 imiss = pd.read_csv(tempDir + pedfile.name + "_" + pedfile.chip + ".imiss", sep="\s+")[["IID", "F_MISS"]]
 imiss.columns = ['ID', "F_MISS"]
+
 Tabela = pd.merge(GenotypedInd, imiss, on="ID")
 Tabela.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoInd.csv', sep=",", index=False)
+
+GenotypedInd_reduced = GenotypedInd[['ID', 'GenoDate', 'Chip', 'Namen']]
+Tabela_reduced = pd.merge(GenotypedInd_reduced, imiss, on="ID")
+Tabela_reduced = Tabela_reduced[['ID', 'GenoDate', 'Chip', 'F_MISS', 'Namen']]
+Tabela_reduced.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoInd_reduced.csv', sep=",", index=False)
+
 print("Created table for Govedo: " + pasma)
 
 if Mesne:
