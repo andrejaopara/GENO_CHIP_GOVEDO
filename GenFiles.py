@@ -25,7 +25,9 @@ chips = {19720: "GGPv02",
 49706: "Versa50K",
 49718: "Versa50K",
 49740: "Versa50K",
-6909: "IlluminaLD"
+6909: "IlluminaLD",
+49743: "Versa50K",
+49745:"Versa50K"
          }
 
 TraitSNPs = {
@@ -57,7 +59,7 @@ class genZipPackage:
         self.name=zipDatoteka.strip(".zip").strip(".ZIP")
         self.sernum=zipDatoteka.strip(".zip").strip('Matija_Rigler_')
         self.genodate=str([i for i in re.findall('\d+', self.zipname) if '2013' in i or '2014' in i or '2015' in i or '2017'
-                       in i or '2018' in i or '2016' in i or '2019' in i][0])
+                       in i or '2018' in i or '2016' in i or '2019' in i or '2020' in i][0])
         self.infiles=self.zipFile.namelist()
         self.finalreportname=[s for s in self.infiles if "final" in s.lower()][0] if len([s for s in self.infiles if "final" in s.lower()]) == 1 else [s for s in self.infiles if "final" in s.lower()]
         self.samplemapname = [s for s in self.infiles if "sample_map" in s.lower()][0] if len([s for s in self.infiles if "sample_map" in s.lower()]) == 1 else [s for s in self.infiles if "sample_map" in s.lower()]
@@ -206,11 +208,11 @@ class pedFile:
     def extractSNP(self, SNP):
         os.system("plink --file " + self.name + " --cow --extract-snp "+ SNP + " --recode --out " + SNP)
 
-    def extractNamedSnpList(self, SNPList, plinkDir):
+    def extractNamedSnpList(self, SNPList, outName, plinkDir):
         print(plinkDir + " --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
                   self.pedname + "_" + SNPList.strip(".txt").strip(".csv"))
         os.system(plinkDir + " --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
-                  self.pedname + "_" + SNPList.strip(".txt").strip(".csv"))
+                  outName)
 
     def extractSNPList(self, SNPList):
         if "SNPList.txt" in os.listdir(os.getcwd()):

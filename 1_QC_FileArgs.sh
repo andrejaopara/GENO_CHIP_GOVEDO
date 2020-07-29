@@ -4,7 +4,7 @@
 plinkDir=$3
 #Edit path to script! 
 #Run within the directory of the files
-export S=/home/jana/Genotipi/Genotipi_CODES
+export S=/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Krizanke_TEMP/Genotipi_28072020
 
 
 ## Check for genotype call, heterozygosity
