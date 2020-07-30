@@ -4,5 +4,8 @@ SELECT ziv.DRZ_ORIG_ZIVAL
   ziv.DAT_ROJSTVO,
   ziv.SIF_SPOL
 FROM zivali ziv
-WHERE ziv.SP1_SIFRA_PASMA =1 or ziv.SP1_SIFRA_PASMA=9;
+WHERE 
+betka.Pasma_Pop_Pv (ziv_id_seq)=1
+--ziv.SP1_SIFRA_PASMA in (1)
+     and to_char(DAT_ROJSTVO,'yyyy')>2000;
 
