@@ -225,19 +225,15 @@ os.system("python2.7 pedda_row.py")  # transform into ped and map file
 # create a new zip file with corrected error names
 # shutil.move(onePackage.name+'_Sample_Map.txt', 'Sample_Map.txt') #rename extracted SampleMap
 print("Adding correct files to .zip")
-with zipfile.ZipFile(onePackage.name + '_FinalReport.zip', 'w', zipfile.ZIP_DEFLATED) as myzip:
+with zipfile.ZipFile(onePackage.name + '_FinalReport.zip', 'w', zipfile.ZIP_DEFLATED, allowZip64 = True) as myzip:
     myzip.write(onePackage.finalreportname)  # create new FinalReport zip
-with zipfile.ZipFile(onePackage.name + '_Sample_Map.zip', 'w', zipfile.ZIP_DEFLATED) as myzip:
+with zipfile.ZipFile(onePackage.name + '_Sample_Map.zip', 'w', zipfile.ZIP_DEFLATED, allowZip64 = True) as myzip:
     myzip.write(onePackage.samplemapname)  # create new Sample_Map.zip
-
 remove_from_zip(onePackage.zipname, onePackage.oldfinalreportname)
 remove_from_zip(onePackage.zipname, onePackage.oldsamplemapname)
-
-
-
-with zipfile.ZipFile(onePackage.zipname, 'a', zipfile.ZIP_DEFLATED) as z:
+with zipfile.ZipFile(onePackage.zipname, 'a', zipfile.ZIP_DEFLATED, allowZip64 = True) as z:
     z.write(onePackage.finalreportname)
-with zipfile.ZipFile(onePackage.zipname, 'a', zipfile.ZIP_DEFLATED) as z:
+with zipfile.ZipFile(onePackage.zipname, 'a', zipfile.ZIP_DEFLATED, allowZip64 = True) as z:
     z.write(onePackage.samplemapname)
 
 
@@ -268,6 +264,8 @@ if parentageTest == 'Y':
     pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanInds.ped")
     pedFileQC.extractNamedSnpList("SNP_ISAG_196.txt", "196." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
     pedFileQC.extractNamedSnpList("SNP_ICAR_554.txt", "554." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
+    pedFileQC.extractNamedSnpList("TRAIT_SNP_VERSAK", "TRAIT_SNP." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
+    pedFileQC.extractNamedSnpList("TRAIT_SNP_ICAR_554", "TRAIT_ICAR_554." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
 
 # add file to the dictionary of chip files
 PedFiles[pedfile.chip].append(tempDir + pedfile.pedname)
@@ -360,7 +358,7 @@ if merge_ask == "Y":
             shutil.copy(pedfile, PLINKDIR + str(i))
             shutil.copy(mapfile, PLINKDIR + str(i))
         os.chdir(PLINKDIR + str(i))
-        shutil.copy("/home/jana/Genotipi/Genotipi_CODES/PARAMFILE.txt", PLINKDIR + i)
+        shutil.copy("/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/PARAMFILE.txt", PLINKDIR + i)
         pedToMerge = ",".join(PedFiles[i]).strip("'")
         mapToMerge = ",".join(MapFiles[i]).strip("'")
         if not os.path.isfile(PLINKDIR + i + '/PLINK_MERGED.ped'):

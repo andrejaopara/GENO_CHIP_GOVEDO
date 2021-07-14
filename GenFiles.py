@@ -13,7 +13,7 @@ chips = {19720: "GGPv02",
 26151: "GGPv03", 
 30105: "GGPv04",
 30106: "GGPv04", 
-76883: "HD" , 
+76883: "GGPHD" , 
 138892: "HDv02", 
 139376: "HDv02", 
 54001:"50Kv01" , 
@@ -59,7 +59,7 @@ class genZipPackage:
         self.name=zipDatoteka.strip(".zip").strip(".ZIP")
         self.sernum=zipDatoteka.strip(".zip").strip('Matija_Rigler_')
         self.genodate=str([i for i in re.findall('\d+', self.zipname) if '2013' in i or '2014' in i or '2015' in i or '2017'
-                       in i or '2018' in i or '2016' in i or '2019' in i or '2020' in i][0])
+                       in i or '2018' in i or '2016' in i or '2019' in i or '2020' in i or '2021' in i][0])
         self.infiles=self.zipFile.namelist()
         self.finalreportname=[s for s in self.infiles if "final" in s.lower()][0] if len([s for s in self.infiles if "final" in s.lower()]) == 1 else [s for s in self.infiles if "final" in s.lower()]
         self.samplemapname = [s for s in self.infiles if "sample_map" in s.lower()][0] if len([s for s in self.infiles if "sample_map" in s.lower()]) == 1 else [s for s in self.infiles if "sample_map" in s.lower()]

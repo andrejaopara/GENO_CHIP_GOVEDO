@@ -14,7 +14,7 @@
 ### ----------------------
 ### --- *ABSOLUTE* path to the required software for all the analyses within Zanardi
 ### --- If you don't have a required program installed please see README ( --download option)
-PGM_PLINK=/home/jana/bin
+PGM_PLINK=/home/andreja/bin/plink-1.07-x86_64
 PGM_FCGENE=/home/jana/bin/fcgene-1.0.7
 PGM_BEAGLE3=/home/jana/bin
 PGM_BEAGLE4=/home/jana/bin
