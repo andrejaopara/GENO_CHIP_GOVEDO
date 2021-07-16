@@ -17,13 +17,18 @@ import shutil
 from collections import defaultdict
 import csv
 import GenFiles
-import subprocess
 import commands
 import tempfile
 import pandas as pd
 
 
 def remove_from_zip(zipfname, *filenames):
+    """
+    This is a function to remove files from a zipfile
+    :param zipfname: name of the file to unzip
+    :param filenames: files to remove
+    :return: creates a new zip with the files removed
+    """
     tempdir = tempfile.mkdtemp()
     try:
         tempname = os.path.join(tempdir, 'new.zip')
@@ -41,14 +46,8 @@ def remove_from_zip(zipfname, *filenames):
 ########################################################
 # set directories and file names
 ########################################################
-# date='09082018'
-# pasma="Rjava"
-# AlleleFormat="top"
-# zip_file="we_mr_19042018_IDB191.zip"
-# merge_ask='N'
-# Ask the user for the current date (date of download) and breed
 date = raw_input("Vnesi datum [danes, brez presledkov]: ")
-pasma = raw_input("Vnesi pasmo [Rjava/Crnobela/Lisasta]: ")
+pasma = raw_input("Vnesi pasmo [Govedo(vse)/Rjava/Crnobela/Lisasta]: ")
 AlleleFormat = raw_input("Vnesi način kodiranja alelov [top / forward / ab]: ")
 Origin = raw_input("Vnesi vir [1-100]")
 zip_file = raw_input("Vnesi ime zip datoteke z genotipi: ")
@@ -56,40 +55,33 @@ merge_ask = raw_input("Ali hočeš genotipe združiti s prejšnjimi genotipi (po
 sort_finalReport = raw_input("Ali hočeš sortirat FinalReport datoteko? [Y/N]")
 
 
-# ask what action does the user want to perform
-parentageTest = raw_input("Ali hočeš izvleči SNP-e za preverjanje starševstva?  [Y/N] ")
-# ask whether you want to remove original zip
+# Ask what action does the user want to perform
+parentageTest = raw_input("Ali hočeš izvleči SNP-e za preverjanje starševstva (razširjen set)?  [Y/N] ")
+# Ask whether you want to remove original zip
 rmOriginalZip = raw_input('Odstranim originalno zip datoteko? [Y/N] ')
-# create directory path to hold current temp genotype files within Genotipi_DATA and breed directory
-#tempDir = "/home/jana/Genotipi/Genotipi_DATA/" + pasma + "_TEMP/Genotipi_" + str(date) + "/"
+# Create directory path to hold current temp genotype files within Genotipi_DATA and breed directory
 tempDir = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/" + pasma + "_TEMP/Genotipi_" + str(date) + "/"
 # PEDDAROW directory
-#peddarow = "/home/jana/Genotipi/TransformGeno/SNPchimpRepo/source_codes/PEDDA_ROW/"
 peddarow = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO"
 # Zip latest
 Zip_lat = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/" + pasma + "/Top/ZipGenoFiles/"
-#Zip_lat = "/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/" + pasma + "/Top/ZipGenoFiles/"
-# Zip_lat="/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/Rjava/Zip/"
-#PLINKDIR = '/home/jana/Genotipi/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
+# Directory of the PLINK package directories and files
 PLINKDIR = '/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
+# Path to the plink software
 plinkSoftware = '~/bin/plink_linux_1.9_x86_64/plink' #naj bo pot/karkoliže/plink
-# path to Zanardi
+# Path to Zanardi
 ZanDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/Zanardi/"
+# Path to directory with essential files (usually the git directory)
 CodeDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO"
+# The directory of the downloaded genotype packages
 DownloadDir = "/home/andreja/Downloads"
-#ZanDir = "/home/jana/Genotipi/TransformGeno/Zanardi/"
-#CodeDir = "/home/jana/Genotipi/TransformGeno/"
-#DownloadDir = "/home/jana/Downloads/"
 
 
-# file with IDs and seq for the animals
+# File with IDs and seq for the animals
 Breed_IDSeq = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/" + pasma + "_seq_ID.csv"
-Mesne_IDSeq = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/Mesne_seq_ID.csv"
-#Breed_IDSeq = "/home/jana/Genotipi/TransformGeno/" + pasma + "_seq_ID.csv"
-#Mesne_IDSeq = "/home/jana/Genotipi/TransformGeno/Mesne_seq_ID.csv"
 
 
-# name of the file
+# Name of the genotype zip file
 zipPackage = zip_file
 #########################################################################################################
 ##########################################################################################################
@@ -98,80 +90,75 @@ zipPackage = zip_file
 ##########################################################################################################
 ##########################################################################################################
 
-# create a dictionary of the number of SNPs and corresponding chip names
+# Create a dictionary of the number of SNPs and corresponding chip names
 chips = GenFiles.chips
 
-
+# Create empty dictionaries to hold the information
 GenoFile = defaultdict(set)
 SampleIDs = defaultdict(list)
-PedFiles = defaultdict(list)
-MapFiles = defaultdict(list)
-PedFilesQC = defaultdict(list)
-MapFilesQC = defaultdict(list)
 AllInfo = []
-# dictionary to hold downlaod date of the genotype package
+
+# Dictionary to hold download date of the genotype package
 DateDownloaded = defaultdict(list)
 DateGenotyped = defaultdict(list)
 
 
 
-# read in animal ID / Seq / DateOfBirth / SexCode table
-# create a dictionary
+# Read in animal ID / Seq / DateOfBirth / SexCode table
+# Create a dictionary
 Breed_IDSeq_Dict = defaultdict()
 with open(Breed_IDSeq, 'rt') as IDSeq:
     reader = csv.reader(IDSeq, delimiter=',')
     for line in reader:
         Breed_IDSeq_Dict[line[0]] = line[1:]
 
-Mesne_IDSeq_Dict = defaultdict()
-with open(Mesne_IDSeq, 'rt') as IDSeq:
-    reader = csv.reader(IDSeq, delimiter=',')
-    for line in reader:
-        Mesne_IDSeq_Dict[line[0]] = line[1:]
-
 ############################################################################################################
 #############################################################################################################
-# create a directory with the current date for temp genotype manipulation
+# Create a directory with the current date for temp genotype manipulation
 if not os.path.exists(tempDir):
     os.makedirs(tempDir)
 
-# change current working directory to the created directory
+# Change current working directory to the created directory
 os.chdir(tempDir)
-
+# Copy the zip package into the "date" directory
 shutil.copy(DownloadDir + "/" + zipPackage, tempDir)
 
-
+# Create a onePackage object from the zip file
 onePackage = GenFiles.genZipPackage(zipPackage)
+# Extract the final report, SNPMap and SampleMap
 onePackage.extractFinalReport()
 onePackage.extractSNPMap()
 onePackage.extractSampleMap()
 
+# Sort the final report by animal if required
 if sort_finalReport == "Y":
     os.system("bash " + CodeDir + "/SortFinalReport.sh " + onePackage.finalreportname + " " + CodeDir)
 
+# Print the package statistics
 print("Name of the package is: " + onePackage.name)
 print("Name of the SNPmap is: " + onePackage.snpmapname)
 print("Name of the Sample Map is: " + onePackage.samplemapname)
 print("Name of the FinalReport is: " + onePackage.finalreportname)
 
-# try:
-#     os.system("sed -i '/^[[:space:]]*$/d' " + onePackage.finalreportname)
-# except:
-#     pass
 
 # check for error IDs and replace the prior identified errouneous IDs
 print("Obtaining spurious IDs")
+# Read in the ErrorIDs file, in which we specify the erroneous IDs and their correct versions
 replaceIDs = open(CodeDir + "/ErrorIDs_genotipi.txt").read().strip().split("\n")
 replaceIDs = [tuple(replaceIDs[x].split(",")) for x in range(len(replaceIDs))]
-errorIDs = onePackage.extractErrorNames()  # extract Sample Names if they exist - they shouldnt be in the file
+# The extractErrorNames() function extracts the wrong IDs by pre-defined criteria --> check the function
+#errorIDs = onePackage.extractErrorNames()  # extract Sample Names if they exist - they shouldnt be in the file
 # to samo, če ti samo prav popravi!!!!!!!!!!!!!
 
+# Create a list of wrong IDs
 rID = [x for (x,y) in replaceIDs]
-errorIDs = [(x, y) for (x, y) in errorIDs if str(x) not in rID]
-errorIDs = errorIDs + replaceIDs
+#errorIDs = [(x, y) for (x, y) in errorIDs if str(x) not in rID]
+#errorIDs = errorIDs + replaceIDs
+errorIDs = replaceIDs
 print("Spurious IDs are: ")
 print(errorIDs)
 
+# Replace the wrong IDs in the final report file
 print("Replacing spurious IDs")
 if errorIDs:
     s = open(onePackage.samplemapname).read()
@@ -189,11 +176,12 @@ if errorIDs:
     fF.close()
     print("Successfully updated FinalReport and SampleMap.")
 
-# copy pedda.param and python script to the current directory
+# Copy pedda.param and python script to the current directory
 print("Preparing peddar.param parameter file")
 shutil.copy((peddarow + "/peddar.param"), "peddar.param")
 shutil.copy((peddarow + "/pedda_row.py"), "pedda_row.py")
-# replace strings with shell command
+
+# Replace strings in the param file for peddarow with shell command
 os.system(
     'sed -i "s|test_FinalReport.txt|' + onePackage.finalreportname + '|g" peddar.param')  # insert FinalReport name into peddar.param
 os.system(
@@ -224,6 +212,8 @@ os.system("python2.7 pedda_row.py")  # transform into ped and map file
 
 # create a new zip file with corrected error names
 # shutil.move(onePackage.name+'_Sample_Map.txt', 'Sample_Map.txt') #rename extracted SampleMap
+
+# Create a new zip with corrected files
 print("Adding correct files to .zip")
 with zipfile.ZipFile(onePackage.name + '_FinalReport.zip', 'w', zipfile.ZIP_DEFLATED, allowZip64 = True) as myzip:
     myzip.write(onePackage.finalreportname)  # create new FinalReport zip
@@ -237,28 +227,24 @@ with zipfile.ZipFile(onePackage.zipname, 'a', zipfile.ZIP_DEFLATED, allowZip64 =
     z.write(onePackage.samplemapname)
 
 
-# make pedfile a GenFiles pedFile object
+# Create a pedFile object from the .ped file
 pedfile = GenFiles.pedFile(onePackage.name + '.ped')
-mapfile = GenFiles.mapFile(onePackage.name + '.map')
-#rename the .ped and .map to include the number of SNPs
+# Rename the .ped and .map
 plinkfilename = onePackage.name.split("/")[-1] + "-" + str(len(pedfile.snps))
 os.rename(onePackage.name + ".ped", plinkfilename + ".ped")
 os.rename(onePackage.name + ".map", plinkfilename + ".map")
-# make pedfile a GenFiles pedFile object
+# Create a pedFile object from the .ped file and a mapFile object from the map file
 pedfile = GenFiles.pedFile(plinkfilename + ".ped")
 mapfile = GenFiles.mapFile(plinkfilename + ".map")
 
 
-
-
-
 # Perform QC!
 print("Peforming QC")
+os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware + " " + tempDir)
 
-os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware)
-PedFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped")
-MapFilesQC[pedfile.chip].append(tempDir + pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.map")
-
+# Extract the SNPs for parentage testing if required
+# SNP_ISAG_196 =
+# DOPOLNI, PROSIM
 if parentageTest == 'Y':
     print("Extracting SNPs for parentage testing")
     pedFileQC = GenFiles.pedFile(pedfile.name + "_" + pedfile.chip + "_CleanInds.ped")
@@ -267,9 +253,7 @@ if parentageTest == 'Y':
     pedFileQC.extractNamedSnpList("TRAIT_SNP_VERSAK", "TRAIT_SNP." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
     pedFileQC.extractNamedSnpList("TRAIT_SNP_ICAR_554", "TRAIT_ICAR_554." + pedfile.chip + "-" + str(len(pedfile.snps)), plinkSoftware)
 
-# add file to the dictionary of chip files
-PedFiles[pedfile.chip].append(tempDir + pedfile.pedname)
-MapFiles[pedfile.chip].append(tempDir + mapfile.mapname)
+# Add file to the dictionary of chip files
 GenoFile[pedfile.chip].add(pedfile.name)
 DateDownloaded[date] += (pedfile.name)
 DateGenotyped[onePackage.genodate] += [(x, pedfile.chip) for x in (pedfile.samples)]
@@ -284,34 +268,22 @@ for i in pedfile.samples:
         print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
         notFound.append(i)
 
-Mesne = defaultdict()
-#prečekiraj, če maš cike
-for i in notFound:
-    if i in Mesne_IDSeq_Dict:
-        Mesne[i] = [i, Mesne_IDSeq_Dict.get(i)[0], onePackage.genodate, (pedfile.chip + "-" + str(len(pedfile.snps))), date, Origin]
-        print("MESNE PASME FOUND!!!")
-    else:
-        print("Sample ID " + i + " in " + pedfile.name + " not found!!!")
-
 
 ################################################################################################
 ###############################################################################################
 # END OF THE LOOP
-# merge ped files if merge_ask = Y
-# create table for govedo
+# Merge ped files if merge_ask = Y
+# Create table for govedo
 #############################################################################################
 ###############################################################################################
 print("The number of genotyped animals is {}.".format(len(pedfile.samples)))
 print("The number of found IDs in {}".format(len(SampleIDs)))
-print("The number of found Mesne IDs in {}".format(len(Mesne)))
 print("The number of genotype packages (different date of genotyping) is {}.".format(len(DateGenotyped)))
-print("The number of different genotyping chips is {0}: {1}.".format(len(PedFiles), PedFiles.keys()))
 pd.DataFrame({"ID": list(set(pedfile.samples) ^ set(SampleIDs))}).to_csv("NotFoundIDs.csv", index=None)
 
-# Perform QC!!!
 
-# #create a table of individuals for govedo
-# #columns are seq, chip, date genotyped
+# Create a table of individuals for govedo
+# Columns are seq, chip, date genotyped
 GenotypedInd = pd.DataFrame.from_dict(SampleIDs, orient='index', dtype=None)
 GenotypedInd.columns = ['ID', 'ZIV_ID_SEQ', 'GenoDate', 'Chip', 'DownloadDate', 'Namen']
 imiss = pd.read_csv(tempDir + pedfile.name + "_" + pedfile.chip + ".imiss", sep="\s+")[["IID", "F_MISS"]]
@@ -320,6 +292,7 @@ imiss.columns = ['ID', "F_MISS"]
 Tabela = pd.merge(GenotypedInd, imiss, on="ID")
 Tabela.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoInd.csv', sep=",", index=False)
 
+# Create a reduced table to import into the database
 GenotypedInd_reduced = GenotypedInd[['ID', 'GenoDate', 'Chip', 'Namen']]
 Tabela_reduced = pd.merge(GenotypedInd_reduced, imiss, on="ID")
 Tabela_reduced = Tabela_reduced[['ID', 'GenoDate', 'Chip', 'F_MISS', 'Namen']]
@@ -327,95 +300,39 @@ Tabela_reduced.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoIn
 
 print("Created table for Govedo: " + pasma)
 
-if Mesne:
-    MesneGenotypedInd = pd.DataFrame.from_dict(Mesne, orient='index', dtype=None)
-    MesneGenotypedInd.columns = ['ID', 'ZIV_ID_SEQ', 'GenoDate', 'Chip', 'DownloadDate']
-    imiss = pd.read_csv(tempDir + pedfile.name + "_" + pedfile.chip + ".imiss", sep="\s+")[["IID", "F_MISS"]]
-    imiss.columns = ['ID', "F_MISS"]
-    MesneTabela = pd.merge(MesneGenotypedInd, imiss, on="ID")
-    MesneTabela.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoInd_Mesne.csv', sep=",", index=False)
-    print("Created MESNE table for Govedo.")
-    #
+os.system("rm *_FinalReport.txt *_FinalReport.zip")
 
-#Extract and remove mesne pasme
-if Mesne:
-    pd.DataFrame({0: pasma, 1: list(Mesne.keys())}).to_csv("MesneIndiv.txt", header=None, sep=" ", index = None)
-    #extract
-    os.system(plinkSoftware + " --file " + pedfile.name + " --cow --keep MesneIndiv.txt --recode --out MesnePasme_" + str(date))
-    os.system("sed -i 's/" + pasma + "/Mesne/g' MesnePasme_" + str(date) + ".ped")
-    #remove
-    os.system(plinkSoftware + " --file " + pedfile.name + " --cow --remove MesneIndiv.txt --recode --out " + pedfile.name)
-
-
+# Merge the genotypes with the rest of the genotypes from the same chip
 if merge_ask == "Y":
     # merge is outside the loop
     # merge all the chips needed updating
+    chip = pedfile.chipstr(i)
+    pedFILE = tempDir + pedfile.pedname
+    mapFILE = tempDir + mapfile.mapname
+    if not os.path.exists(PLINKDIR + chip):
+        os.makedirs(PLINKDIR + chip)
+    shutil.copy(pedFILE, PLINKDIR + chip)
+    shutil.copy(mapFILE, PLINKDIR + chip)
+    os.chdir(PLINKDIR + chip)
+    shutil.copy("/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/PARAMFILE.txt", PLINKDIR + chip)
+    if not os.path.isfile(PLINKDIR + chip + '/PLINK_MERGED.ped'):
+        shutil.move(pedFILE, "PLINK_MERGED.ped")
+        shutil.move(mapFILE, "PLINK_MERGED.map")
+    if os.path.isfile(PLINKDIR + chip + '/PLINK_MERGED.ped'):
+        mergeChipCommand = plinkSoftware + " --file PLINK_MERGED --cow --merge-list {0} --recode --out PLINK_MERGED".format(
+            'MergeChip.txt')
+        with open('MergeChip.txt', 'w') as csvfile:
+            writer = csv.writer(csvfile, delimiter=" ")
+            [writer.writerow(r) for r in zip(pedFILE, mapFILE)]
 
-    for i in PedFiles:
-        if not os.path.exists(PLINKDIR + str(i)):
-            os.makedirs(PLINKDIR + str(i))
-        for pedfile, mapfile in zip(PedFiles[i], MapFiles[i]):
-            shutil.copy(pedfile, PLINKDIR + str(i))
-            shutil.copy(mapfile, PLINKDIR + str(i))
-        os.chdir(PLINKDIR + str(i))
-        shutil.copy("/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/PARAMFILE.txt", PLINKDIR + i)
-        pedToMerge = ",".join(PedFiles[i]).strip("'")
-        mapToMerge = ",".join(MapFiles[i]).strip("'")
-        if not os.path.isfile(PLINKDIR + i + '/PLINK_MERGED.ped'):
-            mergeChipCommand = plinkSoftware + " --file {0} --cow --merge-list {1} --recode --out PLINK_MERGED".format(
-                (PedFiles[i][0].strip(".ped")), 'MergeChip.txt')
-            with open('MergeChip.txt', 'w') as csvfile:
-                writer = csv.writer(csvfile, delimiter=" ")
-                [writer.writerow(r) for r in
-                 zip(PedFiles[i][1:], MapFiles[i][1:])]  # leave the first one out - that goes in the plink command line
-        if os.path.isfile(PLINKDIR + i + '/PLINK_MERGED.ped'):
-            mergeChipCommand = plinkSoftware + " --file PLINK_MERGED --cow --merge-list {0} --recode --out PLINK_MERGED".format(
-                'MergeChip.txt')
-            with open('MergeChip.txt', 'w') as csvfile:
-                writer = csv.writer(csvfile, delimiter=" ")
-                [writer.writerow(r) for r in zip(PedFiles[i], MapFiles[i])]
+    status, output = commands.getstatusoutput(mergeChipCommand)  # merge with plink
 
-        status, output = commands.getstatusoutput(mergeChipCommand)  # merge with plink
+    if status == 0:
+        print
+        "Successfully merged " + chip + " " + PLINKDIR + " " + chip
+    else:
+        print
+        "Merging went wrong, error: " + str(status)
 
-        if status == 0:
-            print
-            "Successfully merged " + str(i) + " " + PLINKDIR + " " + i
-        else:
-            print
-            "Merging went wrong, error: " + str(status)
 
-for chip in PedFiles:
-    PedFiles[chip] = [i.replace("ZipGenoFiles", "ZipGenoFiles/") for i in PedFiles[chip]]
 
-for chip in MapFiles:
-    MapFiles[chip] = [i.replace("ZipGenoFiles", "ZipGenoFiles/") for i in MapFiles[chip]]
-
-# MERGE FOR QC-ed data!!!!
-
-# for i in PedFiles:
-#    if not os.path.exists(PLINKDIR+str(i)):
-#        os.makedirs(PLINKDIR+str(i))
-#    for pedfile, mapfile in zip (PedFilesQC[i], MapFilesQC[i]):
-#        shutil.copy(pedfile, PLINKDIR+str(i))
-#        shutil.copy(mapfile, PLINKDIR+str(i))
-#    os.chdir(PLINKDIR+str(i))
-#    shutil.copy("/home/jana/Genotipi/Genotipi_CODES/PARAMFILE.txt", PLINKDIR+i)
-#    pedToMerge = ",".join(PedFilesQC[i]).strip("'")
-#    mapToMerge = ",".join(MapFilesQC[i]).strip("'")
-#    if not os.path.isfile(PLINKDIR+i+'/PLINK_MERGED_' + i + '_CleanIndsMarkers.ped'):
-#        mergeChipCommand = "plink --file {0} --cow --merge-list {1} --recode --out {2}".format((PedFilesQC[i][0].strip(".ped")), 'MergeChip.txt', "PLINK_MERGED_" + i + "_CleanIndsMarkers")
-#        with open('MergeChip.txt', 'w') as csvfile:
-#            writer = csv.writer(csvfile, delimiter=" ")
-#            [writer.writerow(r) for r in zip(PedFilesQC[i][1:], MapFilesQC[i][1:])] #leave the first one out - that goes in the plink command line
-#    if os.path.isfile(PLINKDIR+i+'/PLINK_MERGED_' + i + '_CleanIndsMarkers.ped'):
-#        mergeChipCommand = 'plink --file PLINK_MERGED_{0}_CleanIndsMarkers --cow --merge-list {1} --recode --out PLINK_MERGED_{0}_CleanIndsMarkers'.format(i, 'MergeChip.txt')
-#        with open('MergeChip.txt', 'w') as csvfile:
-#            writer = csv.writer(csvfile, delimiter=" ")
-#            [writer.writerow(r) for r in zip(PedFilesQC[i], MapFilesQC[i])]
-#
-#    status, output = commands.getstatusoutput(mergeChipCommand) #merge with plink
-#
-#    if status == 0:
-#        print "Successfully merged " + str(i) + " " + PLINKDIR + " " + i + "_CleanIndsMarkers"
-#    else:
-#       print "Merging went wrong, error: " + str(status)
