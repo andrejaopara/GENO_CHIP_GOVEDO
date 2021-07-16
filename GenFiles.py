@@ -30,13 +30,6 @@ chips = {19720: "GGPv02",
 49745:"Versa50K"
          }
 
-TraitSNPs = {
-'Caseins':['BCNAB', 'BCNAB_2', 'BCNAB_3','GNSC319','GNSC319_3','GNSC319_B1','GNSC355','GNSC355_3','GNSC355_B1','KappaCasein12951_1','KappaCasein12951_2','KappaCasein12951_3'],
-'BetaCasein' : ['BCNAB', 'BCNAB_2', 'BCNAB_3'], 
-'KappaCasein': ['GNSC319','GNSC319_3','GNSC319_B1','GNSC355','GNSC355_3','GNSC355_B1','KappaCasein12951_1','KappaCasein12951_2','KappaCasein12951_3'],
-'Citrulinemia':[]}
-
-
 
 """
 To je samo za ustvarit Sifrant SNPov,potem, ko ga imaš, ga skopiraj v datoteko
@@ -53,6 +46,9 @@ with open(SNPSifrant, 'rb') as SNP_Sifrant:
 SNP800Sifrant_Dict = {}
 
 class genZipPackage:
+    """
+    Class to handle zip packages including SNPchip genotype data
+    """
     def __init__(self, zipDatoteka):
         self.zipFile=zipfile.ZipFile(zipDatoteka)
         self.zipname=zipDatoteka
@@ -66,9 +62,17 @@ class genZipPackage:
         self.snpmapname = [s for s in self.infiles if "snp_map" in s.lower()][0] if len([s for s in self.infiles if "snp_map" in s.lower()]) == 1 else [s for s in self.infiles if "snp_map" in s.lower()]
 
     def unzip(self):
+        """
+        Function to extract all the files from the zip
+        :return: All the ziped files
+        """
         self.zipFile.extractall()
     
-    def extractFinalReport(self): #extracts all FinalReports and extracts them / if there is no FinalReport, it returns notice
+    def extractFinalReport(self):
+    """
+    extracts all FinalReports and extracts them / if there is no FinalReport, it returns notice
+    :return: extracted FinalReport
+    """
         if self.finalreportname:
             if self.finalreportname.endswith('zip'):
                 self.zipFile.extract(self.finalreportname)
@@ -91,6 +95,11 @@ class genZipPackage:
             return 'No FinalReport infile in ' + self.name
         
     def extractSampleMap(self):
+        """
+        Extract sample map from the zip package
+        :param self: genotyping zipped package
+        :return: extracted Sample map
+        """
         if self.samplemapname:
             if self.samplemapname.endswith('zip'):
                 self.zipFile.extract(self.samplemapname)
@@ -112,6 +121,11 @@ class genZipPackage:
             return 'No Sample_Map.zip in {} infiles'.format(self.name)
         
     def extractSampleNames(self):
+        """
+        Function to extract the names of the genotyped animals
+        :param self: The zipped package
+        :return: List of Sample Names
+        """
         if self.samplemapname:
             self.extractSampleMap()
             #os.system('sed -i "s|SI  |SI|g" ' + self.name+'_Sample_Map.txt') #remove double spacing
@@ -122,7 +136,11 @@ class genZipPackage:
             return 'No Sample_Map.zip in {} infiles'.format(self.name)
 
     
-    def extractErrorNames(self): #this creates a list of tuples - errorID, correctedID
+    def extractErrorNames(self):
+        """
+        A function to create a list of tuples - errorID, correctedID
+        :return: a list of tuples (errorName, correctName)
+        """
         if self.samplemapname:
             if not os.path.isfile(self.samplemapname):
                 self.extractSampleMap()
@@ -137,6 +155,7 @@ class genZipPackage:
                     errornames.append((i, "SI0" + str(i)))
                 if str(i).isdigit() and len(str(i)) == 8:
                     errornames.append((int(i), 'SI'+str(i)))
+                # Zamenja dvojni presledek
                 if str(i).find("  ") != -1:
                     a = str(i).replace("  ", " ")
                 #
@@ -145,6 +164,7 @@ class genZipPackage:
                 # if i.find("  ") == -1 and i.find(" ") != -1 and "SI" in i:
                 #     errornames.append((i, "".join(i.split(" ")[:2])))
                     #
+                # Preveri, če so oklepaji ali zaklepaji v imenu
                 if '(' in str(i) or ')' in str(i):
                     pass
             return errornames
@@ -153,6 +173,11 @@ class genZipPackage:
                     
                   
     def extractSNPMap(self):
+        """
+        A function to extrast the SNPMap
+        :param self: The zipped package
+        :return: Extracted Sample Map
+        """
         if self.snpmapname:
             if self.snpmapname.endswith('zip'):
                 self.zipFile.extract(self.snpmapname)
@@ -170,10 +195,21 @@ class genZipPackage:
             return 'No SNP_Map.zip in {} infiles'.format(self.name)
 
     def checkSubDir(self):
+        """
+        A function to check whether the zipped package contains many folders (genotyping packages)
+        :param self: zipped package
+        :return: A string saying that multiple subdirectories will be created
+        """
         if any(ime.endswith("/") for ime in self.infiles):
             return "Zip file contains multiple genotype packages, subdirectories will be created at file extraction"
             
-    def zipSubDir(self, rmOriginalZip): #zips the 6 files and removes the directory
+    def zipSubDir(self, rmOriginalZip):
+        """
+        Zips and removes the subdirectory, if there are any
+        :param self:
+        :param rmOriginalZip:
+        :return:
+        """
         if self.checkSubDir():
             self.subDirNames=filter(lambda x: x.endswith("/"), self.infiles)
             self.unzip()
@@ -188,6 +224,9 @@ class genZipPackage:
                                                           
                                                                                                     
 class pedFile:
+    """
+    Class to handle plink .ped files
+    """
     def __init__(self, pedDatoteka):
         self.pedname=pedDatoteka
         self.name=pedDatoteka.strip(".ped")
@@ -206,15 +245,32 @@ class pedFile:
         
     
     def extractSNP(self, SNP):
+        """
+        Function to extract a single SNP
+        :param SNP: The name of the SNP
+        :return: Creates a new .ped file with extracted SNP
+        """
         os.system("plink --file " + self.name + " --cow --extract-snp "+ SNP + " --recode --out " + SNP)
 
     def extractNamedSnpList(self, SNPList, outName, plinkDir):
+        """
+        Functon to extract a list of SNPs
+        :param SNPList: A file holding the names of the SNPs to extract
+        :param outName: The name of the output .ped file
+        :param plinkDir: the path plink
+        :return: Creates a new .ped file with extracted SNPs
+        """
         print(plinkDir + " --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
                   self.pedname + "_" + SNPList.strip(".txt").strip(".csv"))
         os.system(plinkDir + " --file " + self.name + " --cow --extract " + SNPList + " --recode --out " +
                   outName)
 
     def extractSNPList(self, SNPList):
+        """
+        Functon to extract a list of SNPs
+        :param SNPList: A file holding the names of the SNPs to extract
+        :return: Creates a new .ped file with extracted SNPs
+        """
         if "SNPList.txt" in os.listdir(os.getcwd()):
             overwrite=raw_input("Existing SNPList.txt file in the current working directory.\
  Do you want to overwrite and proceed? \n Ped and Map files will also be overwritten. [Y/N] ")
@@ -227,31 +283,23 @@ class pedFile:
                 f.write(snp + "\n")
         os.system("plink --file " + self.name + " --cow --extract SNPList.txt --recode --out SNPList")
 
-    def extractTraitSNPs(self, Trait):
-        SNPonChip = [x for x in TraitSNPs[Trait] if x in self.snps]
-        if SNPonChip:
-            print("\n"*3 +  "{0} SNPs found on the chip({1}): {2}".format(Trait, len(SNPonChip), SNPonChip))
-            with open(Trait + ".txt", "w") as f:
-                for snp in TraitSNPs[Trait]:
-                    f.write(snp + "\n")
-            os.system("plink --file " + self.name + " --cow --extract "+Trait+".txt --recode --out " + Trait)
-        if not SNPonChip:
-            return "No {} SNPs found on chip".format(Trait)
-            
-    def extractParentalSNPs(self, number):
-        if number in (100,200,800):
-            with open("ParentalSNP_" + str(number) + ".txt", "w") as f:
-                for i in eval("SNP"+str(number)+"Sifrant_Dict"):
-                    f.write(i + "\n")
-            os.system("plink --file " + self.name + " --cow --extract ParentalSNP_800.txt --recode --out ParentalSNP800_"+self.sernum)
-        else:
-            return "Non-standard number of SNPs for parental verification"
-  
+
+
     def individualSNPsDF(self, sampleID):
+        """
+        A function to create a dataframe with SNPs for an individual
+        :param sampleID: The ID of the sample as found in the .ped file
+        :return: Write a dataframe with individual genotype information
+        """
         position=[i for i,x in enumerate(self.samples) if x == sampleID][0]
         return  pd.DataFrame({self.pedContent[position].split(" ")[1] : self.pedContent[position].split(" ")[6:]})
         
     def individualSNPsList(self, sampleID):
+        """
+         A function to create a list with SNPs for an individual
+         :param sampleID: The ID of the sample as found in the .ped file
+         :return: A list with individual genotype information
+         """
         position=[i for i,x in enumerate(self.samples) if x == sampleID][0]
         return self.pedContent[position].split(" ")[6:]
         
@@ -261,6 +309,9 @@ class pedFile:
     
     
 class mapFile:
+    """
+    A class to handle plink .map file
+    """
     def __init__(self, mapDatoteka):
         self.mapname=mapDatoteka
         self.name=mapDatoteka.strip(".map")
@@ -276,6 +327,11 @@ class mapFile:
             self.chip=len(self.snps)
         
     def chrSNPs(self, chromosome):
+        """
+        A function to return a series of SNPs from one chromosome
+        :param chromosome: Chromosome number or name
+        :return: A series with SNP names
+        """
         printSNPs = raw_input("The number of SNPs on chromosome {0} is {1}. ".format(chromosome, len(self.mapContent[self.mapContent.chr==str(chromosome)]))+"Do you want to display all the SNPs? [Y/N] ")
         if printSNPs == 'Y':
             return self.mapContent[self.mapContent.chr==str(chromosome)]
@@ -284,29 +340,11 @@ class mapFile:
             
             
     def posSNP(self, chromosome, pos):
+        """
+        A function to find the name of the SNP on a particular location
+        :param chromosome: Chromosome number or name
+        :param pos: Position on the chromosome [int]
+        :return: The name of the SNP on the position
+        """
         return self.mapContent[(self.mapContent.chr==str(chromosome)) & (self.mapContent.stop==pos)]
               
-        
-class mapFileMerged:
-    def __init__(self, mapDatoteka):
-        self.mapname=mapDatoteka
-        self.name=mapDatoteka.strip(".map")
-        self.sernum=mapDatoteka.strip(".map").strip("Matija_Rigler_")
-        self.mapContent=pd.read_table(mapDatoteka, header=None, sep=" ", names=("chr", "snp", "start", "stop"))
-        self.snps=self.mapContent["snp"]
-        try:
-            self.chip=chips[(len(self.mapContent))]       
-        except:
-            self.chip=len(self.snps)
-        
-    def chrSNPs(self, chromosome):
-        printSNPs = raw_input("The number of SNPs on chromosome {0} is {1}. ".format(chromosome, len(self.mapContent[self.mapContent.chr==str(chromosome)]))+"Do you want to display all the SNPs? [Y/N] ")
-        if printSNPs == 'Y':
-            return self.mapContent[self.mapContent.chr==str(chromosome)]
-        else:
-            pass
-            
-            
-    def posSNP(self, chromosome, pos):
-        return self.mapContent[(self.mapContent.chr==str(chromosome)) & (self.mapContent.stop==pos)]
-       
