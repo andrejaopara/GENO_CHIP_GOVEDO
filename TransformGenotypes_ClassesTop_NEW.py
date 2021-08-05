@@ -240,7 +240,7 @@ mapfile = GenFiles.mapFile(plinkfilename + ".map")
 
 # Perform QC!
 print("Peforming QC")
-os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware + " " + tempDir)
+os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware)
 
 # Extract the SNPs for parentage testing if required
 # SNP_ISAG_196 =
@@ -300,13 +300,12 @@ Tabela_reduced.to_csv(path_or_buf=tempDir + str(onePackage.genodate) + 'GovedoIn
 
 print("Created table for Govedo: " + pasma)
 
-os.system("rm *_FinalReport.txt *_FinalReport.zip")
 
 # Merge the genotypes with the rest of the genotypes from the same chip
 if merge_ask == "Y":
     # merge is outside the loop
     # merge all the chips needed updating
-    chip = pedfile.chip
+    chip = pedfile.chipstr(i)
     pedFILE = tempDir + pedfile.pedname
     mapFILE = tempDir + mapfile.mapname
     if not os.path.exists(PLINKDIR + chip):
@@ -333,6 +332,7 @@ if merge_ask == "Y":
     else:
         print
         "Merging went wrong, error: " + str(status)
+
 
 
 
