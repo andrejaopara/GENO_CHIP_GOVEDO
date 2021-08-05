@@ -69,10 +69,10 @@ class genZipPackage:
         self.zipFile.extractall()
     
     def extractFinalReport(self):
-    """
-    extracts all FinalReports and extracts them / if there is no FinalReport, it returns notice
-    :return: extracted FinalReport
-    """
+        """
+        extracts all FinalReports and extracts them / if there is no FinalReport, it returns notice
+        :return: extracted FinalReport
+        """
         if self.finalreportname:
             if self.finalreportname.endswith('zip'):
                 self.zipFile.extract(self.finalreportname)
