@@ -323,7 +323,7 @@ if merge_ask == "Y":
             'MergeChip.txt')
         with open('MergeChip.txt', 'w') as csvfile:
             writer = csv.writer(csvfile, delimiter=" ")
-            [writer.writerow(r) for r in zip(pedFILE, mapFILE)]
+            writer.writerow([pedFILE, mapFILE])
 
     status, output = commands.getstatusoutput(mergeChipCommand)  # merge with plink
 
