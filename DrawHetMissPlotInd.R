@@ -36,5 +36,5 @@ names(HET)  <- c("ID")
 EXCLUDE <- unique(rbind(MISS,HET))
 
 if (!all(is.na(EXCLUDE))) {
-  write.table(EXCLUDE, file="IndividualsToExlcudeMissHet.txt", col.names=FALSE, row.names=FALSE, quote=FALSE)
+  write.table(EXCLUDE, file="IndividualsToExlcudeMissHet.txt", col.names=FALSE, row.names=FALSE, quote=FALSE, na="")
 }

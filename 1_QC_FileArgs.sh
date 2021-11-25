@@ -34,15 +34,18 @@ else
       mv $1_$2.lmiss  $1_$2_CleanInds.lmiss
 fi
 
-echo "##########################################################################"
-echo "Check for SNP call rate"
-echo "##########################################################################"
-## Extract SNP with missing information on more than 10% of genotypes
-tail -n +2 $1_$2_CleanInds.lmiss | awk '$5 > 0.10 { print $1,$2 }' > MarkersWithCallRateLessThan0.90Plink_$1_$2.txt
+FILE2=$1_$2_CleanInds
+if [ -f $FILE2 ]; then 
+	echo "##########################################################################"
+	echo "Check for SNP call rate"
+	echo "##########################################################################"
+	## Extract SNP with missing information on more than 10% of genotypes
+	tail -n +2 $1_$2_CleanInds.lmiss | awk '$5 > 0.10 { print $1,$2 }' > MarkersWithCallRateLessThan0.90Plink_$1_$2.txt
 
-## Draw plot for percentage of genotype call rate and heterozygosity rate for markers
-${S}/DrawMissPlotMarkers.R $1_$2_CleanInds
-echo "Created plot:$1_$2_CleanInds_lmiss.pdf"
+	## Draw plot for percentage of genotype call rate and heterozygosity rate for markers
+	${S}/DrawMissPlotMarkers.R $1_$2_CleanInds
+	echo "Created plot:$1_$2_CleanInds_lmiss.pdf"
 
-## Remove SNP with missing information on more than 10% of genotypes
-$3 --file $1_$2_CleanInds --recode --geno 0.10 --cow --out $1_$2_CleanIndsMarkers
+	## Remove SNP with missing information on more than 10% of genotypes
+	$3 --file $1_$2_CleanInds --recode --geno 0.10 --cow --out $1_$2_CleanIndsMarkers
+fi

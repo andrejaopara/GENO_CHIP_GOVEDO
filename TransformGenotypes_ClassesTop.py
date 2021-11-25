@@ -20,6 +20,7 @@ import GenFiles
 import commands
 import tempfile
 import pandas as pd
+import sys
 
 
 def remove_from_zip(zipfname, *filenames):
@@ -241,6 +242,9 @@ mapfile = GenFiles.mapFile(plinkfilename + ".map")
 # Perform QC!
 print("Peforming QC")
 os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware + " " + tempDir)
+
+if not os.path.isfile(pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped"):
+    sys.exit("No animals left after QC!")
 
 # Extract the SNPs for parentage testing if required
 # SNP_ISAG_196 =
