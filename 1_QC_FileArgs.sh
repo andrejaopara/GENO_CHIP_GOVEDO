@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #first argument is the PLINK ped and map file name, second is the chip
+#Thirs argument is the path to plink
+#Fourth argument is the temporary file for genotypes
 #Edit path to script! 
 #Run within the directory of the files
 plink=$3
