@@ -244,7 +244,11 @@ print("Peforming QC")
 os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware + " " + tempDir)
 
 if not os.path.isfile(pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped"):
+<<<<<<< HEAD
     print("No animals left after QC!")
+=======
+    sys.exit("No animals left after QC!")
+>>>>>>> 32d5fd4be75500a3c9a906ea0dca1024cef1bd6d
 
 # Extract the SNPs for parentage testing if required
 # SNP_ISAG_196 =
