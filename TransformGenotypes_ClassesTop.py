@@ -308,6 +308,27 @@ print("Created table for Govedo: " + pasma)
 
 os.system("rm *_FinalReport.txt *_FinalReport.zip")
 
+
+
+#Merge failures:
+#If binary merging fails because at least one variant would have more than two alleles, a list of offending variant(s) will be written to plink.missnp. (For efficiency reasons, this list is no longer #generated during a failed text fileset merge; convert to binary and remerge when you need it.) There are several possible causes for this: the variant could be known to be triallelic; there could be  # a strand flipping issue, or a sequencing error, or a previously unseen variant... manual inspection of some variants in this list is generally advisable. Here are a few pointers.
+
+print("Testing merge failures")
+## move PLINK_MERGED and current file into binary form: 
+os.system(plinkSoftware + " --file " + pedfile.name + " --cow --maf 0.05 --make-bed --out " + pedfile.name + "_testStrand")
+    
+
+## merge binary files: PREVERI!! PLINK_MERGED ni na tem direktoriju-kako dodati.
+os.system(plinkSoftware + " --bfile " +  pedfile.name + "_testStrand --bmerge " + PLINKDIR + pedfile.chip + "/PLINK_MERGED.bed " + PLINKDIR + pedfile.chip + "/PLINK_MERGED.bim " + PLINKDIR + pedfile.chip + "/PLINK_MERGED.fam --make-bed --cow --out " + pedfile.name + "_mergeTrial")
+        
+## dodati da če dobimo plink.missnp datoteko, da se tukaj ustavi.
+if os.path.isfile(pedfile.name + "_mergeTrial.missnp"):         ## če obstaja plink.missnp naj se program tukaj ustavi in ne združuje naprej (naslednji korak)
+   ## print("plink.missnp datoteka kaže na napake pri združevanju")
+    sys.exit("plink.missnp datoteka kaže na napake pri združevanju")
+else:
+    print("Merging went OK")
+   
+        
 # Merge the genotypes with the rest of the genotypes from the same chip
 if merge_ask == "Y":
     # merge is outside the loop
