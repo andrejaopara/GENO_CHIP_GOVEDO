@@ -69,7 +69,8 @@ Zip_lat = "/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/" + pa
 # Directory of the PLINK package directories and files
 PLINKDIR = '/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/' + pasma + '/Top/'
 # Path to the plink software
-plinkSoftware = '~/bin/plink_linux_1.9_x86_64/plink' #naj bo pot/karkoliže/plink
+plinkSoftware = '/home/andreja/PLINK/plink_linux_x86_64_20221210/plink' #naj bo pot/karkoliže/plink
+#plinkSoftware = '~/bin/plink_linux_1.9_x86_64/plink' #naj bo pot/karkoliže/plink
 # Path to Zanardi
 ZanDir = "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/Zanardi/"
 # Path to directory with essential files (usually the git directory)
@@ -244,11 +245,8 @@ print("Peforming QC")
 os.system("bash " + CodeDir + "/1_QC_FileArgs.sh " + pedfile.name + " " + pedfile.chip + " " + plinkSoftware + " " + tempDir)
 
 if not os.path.isfile(pedfile.name + "_" + pedfile.chip + "_CleanIndsMarkers.ped"):
-<<<<<<< HEAD
     print("No animals left after QC!")
-=======
-    sys.exit("No animals left after QC!")
->>>>>>> 32d5fd4be75500a3c9a906ea0dca1024cef1bd6d
+
 
 # Extract the SNPs for parentage testing if required
 # SNP_ISAG_196 =

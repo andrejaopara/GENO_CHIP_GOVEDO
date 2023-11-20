@@ -31,7 +31,7 @@ echo "##########################################################################
 ## You need geneplotter package to run next script. Install geneplotter with the following command
 # source("https://bioconductor.org/biocLite.R")
 # biocLite("geneplotter")
-${S}/DrawHetMissPlotInd.R $1_$2
+${S}./DrawHetMissPlotInd.R $1_$2
 echo "##########################################################################"
 echo "Created plot:$1_$2_imiss-vs-het.pdf"
 echo "##########################################################################"
@@ -66,7 +66,7 @@ if [ -f $FILE2 ]; then
 	tail -n +2 $1_$2_CleanInds.lmiss | awk '$5 > 0.10 { print $1,$2 }' > MarkersWithCallRateLessThan0.90Plink_$1_$2.txt
 
 	## Draw plot for percentage of genotype call rate and heterozygosity rate for markers
-	${S}/DrawMissPlotMarkers.R $1_$2_CleanInds
+	${S}./DrawMissPlotMarkers.R $1_$2_CleanInds
 	echo "Created plot:$1_$2_CleanInds_lmiss.pdf"
 
 	## Remove SNP with missing information on more than 10% of genotypes

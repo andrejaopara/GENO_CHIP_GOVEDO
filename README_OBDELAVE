@@ -1090,7 +1090,7 @@ UVOZ KONČAN!! 554 SNP, TRAIT SNP, zip prestavljen na mrežo
 #####################
 PAKET LS PASMA ZIP: snp_SI_211205.zip
 INDEX:  SNPindex_043_V1_new_order.txt
-SNP: snp_slowenien_211205_705_v3.txt
+SNP: snp_slowenien_211205_705_v3.txt   43376
 direktorij:/home/andreja/SNPchimpRepo/source_codes/iConvert/2022-01-05/
 UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
 živali z napačinimi IDji posredovane Betki po Mailu, ponovi uvoz, ko dobiš prave ID-je
@@ -1414,7 +1414,7 @@ direktorij:/home/andreja/SNPchimpRepo/source_codes/iConvert/2022-06-17/
 UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
 
 ################################
-PAKET EIP:
+PAKET EIP MAJ 2022:
 we_mk_27062022_Versa50K_1.zip
 2 živali obe neuspešni analizi-brišem paket (le v arhivu na Transcend disku)
 
@@ -1426,16 +1426,548 @@ ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest
 UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
 
 ################################
-PAKET NPP (65 od 67 živali) CVM report uvožen
-we_ap_28062022_Versa50K_1.zip    preimenujem: we_ap_28062022_Versa50K.zip
+PAKET NPP JUNIJ 2022(65 od 67 živali) CVM report uvožen
+we_ap_28062022_Versa50K_1.zip
 /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_28062022 65 živali
-ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K 
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
 UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
 
-Žival SI65313978 ima call_rate pod 90 (48,61).
-Žival SI55510406 ima call_rate pod 90 (82,19).
-Žival SI95266354 ima call_rate pod 90 (48,97).
-Žival SI25617939 ima call_rate pod 90 (82,9).
+Žival SI65313978 ima call_rate pod 90 (48,61). vzrejal+ cvm
+Žival SI55510406 ima call_rate pod 90 (82,19). NPP
+Žival SI95266354 ima call_rate pod 90 (48,97). NPP
+Žival SI25617939 ima call_rate pod 90 (82,9). NPP
+
+################################
+PAKET EIP MAJ zadnjih 12 od 803:
+we_mk_29062022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_29062022 12 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+################################
+PAKET EIP JUNIJ prvih 208 od  493 živali
+we_mk_01072022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_04072022 208 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+################################
+PAKET PGT 3 živali (2/3 LOW_CALL)
+we_ap_01072022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_01072022 3 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+################################
+PAKET PGT 2 živali
+we_ap_01072022_Versa50K_2.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_02072022 2 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+################################
+PAKET NPP&VZREJAL. 2 živali ČB
+we_ap_01072022_Versa50K_3.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_03072022 2 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+################################
+PAKET EIP JUNIJ Opportunity QTY: 493 Current Report: 285
+we_mk_07072022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_07072022 285 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+Žival SI55138909 ima call_rate pod 90 (76,21).
+Žival SI35138468 ima call_rate pod 90 (85,01).
+Žival SI05137714 ima call_rate pod 90 (70,83).
+Žival SI53907547 ima call_rate pod 90 (48,81).
+Žival SI23259191 ima call_rate pod 90 (58,02).
+Žival SI04716745 ima call_rate pod 90 (89,86).
+Žival SI54857627 ima call_rate pod 90 (77,35).
+
+################################
+PAKET GNPP Opportunity QTY: 67 Current Report: 2
+we_ap_14072022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_14072022 2 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+################################
+PAKET RJAVI MATIC:
+we_sb_04082022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_04082022 1 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+################################
+
+PAKET RJAVI MATIC:
+we_sb_04082022_Versa50K_2.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_05082022 12 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+################################
+PAKET EIP AVGUST
+we_mk_01092022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_01092022 11 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+################################
+PAKET GNPP AVGUST
+we_ap_01092022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_02092022 36 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##################### namen=10
+LS PASMA ZIP: snp_SI_220809.zip
+INDEX: SNPindex_043_V1_new_order.txt    43376
+SNP:  snp_slowenien_220809_705_v3 161 živali
+direktorij:/home/andreja/SNPchimpRepo/source_codes/iConvert/2022-09-13/
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+#####################
+
+PAKET GNPP SEPTEMBER 
+we_ap_22092022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_23092022 71 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+#####################
+PAKET RJAVI MATIC:
+we_sb_07102022_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_07102022 6 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+###########
+PAKET RJAVI MATIC:
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_21102022 30 živali
+we_sb_21102022_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+
+###########
+GNPP+VZREJAL:
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_28102022 209 živali
+we_ap_28102022_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+###########
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_22112022  1 žival
+we_ap_22112022_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+###########
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_23112022  1 žival
+we_ap_22112022_Versa50K_2.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+###########
+KIS
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_09122022  190 žival
+we_ap_09122022_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+
+OBDELAVE PO NOVI INŠTALACIJI UBUNTU!
+
+
+###########
+MATIC:
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_16122022  13 žival
+we_sb_16122022_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+######
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_12122022  12 žival
+we_sb_12122022_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+######
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_11012023  35 žival
+we_mk_11012023_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+######
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_12012023   43 žival
+we_ap_11012023_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+######
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_13012023   žival
+we_ap_11012023_Versa50K_2.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+######
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_14012023   žival
+we_ap_12012023_Versa50K_1.zip
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+CIKE ZA NAZAJ: 21 žival vse so že obdelane v preteklosti!
+
+NIMAM USTREZNEGA MAP FILA S TAKIM ŠT: SNPov!! SNP so pri isti živali podvojeni!!
+
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Cike_TEMP/Genotipi_18012023  21 žival vse so že obdelane v preteklosti!
+9.2012(SIC_1_76Simcic).txt ---> preimenujem v --> 18012023_CK.zip
+Processing Date	09/01/2012 12:31 PM ??
+Num SNPs 56298	in ne 54609 kot ostale cike. v datoteki so podvojene vrstice!!
+
+ERROR:
+### Processing FinalReport file:
+('Finshed processing individual:', 'SI1390358', ' - Total SNPs:', 56298)
+ERROR: The order of the SNPs in the different individuals is consistent. Check ARS-BFGL-BAC-31498 and ARS-BFGL-BAC-31500
+
+##############
+CIKE ZA NAZAJ:
+GS_201502_FR_TierALL_1_43.txt  ----> 201502.zip 
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Cike_TEMP/Genotipi_24012023  1 žival
+samo ena žival: SI24291594=NORD=SIC107=3719500(seq)
+UVOZ KONČAN!! 554 SNP, .txt prestavljen na mrežo v obliki final reporta!
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Cike/Top/50Kv02
+
+
+##############
+CIKE ZA NAZAJ:
+GS_201501_TierALL_Teil1_FR_1_11.txt --->201501.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_23012023  7 živali
+UVOZ KONČAN!! 554 SNP, .txt prestavljen na mrežo v obliki final reporta!
+49395 SNPov- nimam takega map fila!!
+
+SIC110 do SIC116 - 7 živali
+UVOZ KONČAN!! 554 SNP, .txt prestavljen na mrežo v obliki final reporta!
+
+
+
+ni obdelano in združeno zaradio napake:
+### Processing FinalReport file:
+('Finshed processing individual:', 'SI04382533', ' - Total SNPs:', 49395)
+ERROR: The order of the SNPs in the different individuals is consistent. Check ARS-BFGL-BAC-1020 and ARS-BFGL-NGS-111265
+Adding correct files to .zip
+Traceback (most recent call last):
+  File "TransformGenotypes_ClassesTop.py", line 233, in <module>
+    pedfile = GenFiles.pedFile(onePackage.name + '.ped')
+  File "/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/GenFiles.py", line 240, in __init__
+    self.snps=[line.split("\t")[1] for line in self.mapContent]
+IndexError: list index out of range
+
+ni združeno ve MERGED_CIKE!!
+
+##############
+CIKE ZA NAZAJ: 
+
+GS_202109_2L_FR_TierALL_11.txt
+
+
+SIC169-SIC180  - 11 živali
+UVOZ KONČAN!! 554 SNP, .txt prestavljen na mrežo v obliki final reporta!
+
+
+ni združeno ve MERGED_CIKE!!
+
+##############
+CIKE ZA NAZAJ: 
+GS_202001_7_TierALL.txt
+
+SIC160 do SIC168  - 8 živali
+UVOZ KONČAN!! 554 SNP, .txt prestavljen na mrežo v obliki final reporta!
+
+ni združeno ve MERGED_CIKE!!
+
+
+
+##############
+PAKET
+we_sb_26012023_Versa50K_1.zip 
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_01022023   žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET
+we_mk_14022023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_14022023 15  žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET PGT 2023
+we_ap_14022023_Versa50K_2.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_15022023  2 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET PGT 2023
+we_ap_14022023_Versa50K_3.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_16022023  1 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET
+we_ap_14022023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_17022023  78 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+##############
+PAKET PGT 2023
+we_ap_22022023_Versa50K_1.zip
+home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_22022023  62 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET
+we_ap_22022023_Versa50K_2.zip
+home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_23022023  8  žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET
+we_mk_22022023_Versa50K_1.zip
+home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_24022023  27 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+##############
+PAKET
+we_sb_24022023_Versa50K_1.zip
+home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_25022023  11 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET
+we_sb_24022023_Versa50K_2.zip
+home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_26022023  47 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+SI85094757=SI95094757 
+
+##############
+PAKET ČB MARIJA?
+we_sha_22032023_Versa50K_1.zip
+home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_22032023  1 žival
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+samo žival SI55159740
+
+##############
+PAKET KIS
+we_ap_04042023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_04042023
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET KIS
+we_ap_04042023_Versa50K_2.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_05042023
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET KIS
+we_ap_20042023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_20042023
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET BF(1304) MARIJA POSLALA
+we_sha_24042023_Versa50K_1.zip 
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_24042023 40 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET BF(1305) MARIJA POSLALA
+we_sha_24042023_Versa50K_2.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_25042023 445 živali od tega 9 nepoznanih
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET BF(1306) MARIJA POSLALA
+we_sha_24042023_Versa50K_3.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_26042023 11 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET BF(1307) MARIJA POSLALA
+we_sha_24042023_Versa50K_4.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_27042023  2 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+PAKET RJ MATIC
+we_sb_09052023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_09052023 41  živali od tega  dve nepoznani
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+
+##################### namen=10
+LS PASMA ZIP: snp_SI_221211.zip
+INDEX: SNPindex_043_V1_new_order.txt    43376
+SNP:  snp_slowenien_221211_705_v3.txt  66 živali
+direktorij:/home/andreja/SNPchimpRepo/source_codes/iConvert/2023-06-01/
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##################### namen=10
+LS PASMA ZIP: snp_SI_230428.zip
+INDEX: SNPindex_043_V1_new_order.txt    43376
+SNP:  snp_slowenien_230428_705_v3.txt 163 živali
+direktorij:/home/andreja/SNPchimpRepo/source_codes/iConvert/2023-06-02/
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+NPP KIS
+we_ap_13062023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_13062023     109 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+NPP KIS
+we_ap_14062023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_14062023    93  živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+MATIC RJ
+we_sb_14062023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_15062023   25   živali
+
+
+ČAKAM, da se dva ID ja popravita ali registrirata:- sta že- sedaj lahko uvoziš
+SI25094792
+SI55094799
+
+error id file pripravljen.
+
+##############
+NPP KIS
+we_ap_26062023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_26062023   2   živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+MATIC RJ
+we_sb_27062023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_27062023    3  živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+###############
+QC ZDRUZEVANJE /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K/ZDRUZEVANJE_2023_07_17
+bash 1_QC_FileArgs.sh PLINK_MERGED Versa50K /home/andreja/PLINK/plink_linux_x86_64_20221210/plink
+ne počisti po osebkih
+
+##############
+NPP KIS
+we_ap_11072023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_18072023 457  živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+##############
+NPP KIS
+we_ap_19072023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_19072023 94  živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELANO PO FORMATIRANJU
+we_ap_02082023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_02082023  12 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELANO PO FORMATIRANJU
+we_sh_02082023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_03082023  7 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELANO PO FORMATIRANJU
+we_sh_02082023_Versa50K_2.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_04082023  26 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELANO PO FORMATIRANJU
+we_sb_09082023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_09082023  10 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELANO PO FORMATIRANJU
+we_ap_09082023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_10082023  10 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELANO PO FORMATIRANJU
+we_ap_20092023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_20092023  118 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELANO PO FORMATIRANJU
+we_ap_24102023_Versa50K_1.zip
+/home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Govedo_TEMP/Genotipi_24102023  64 živali
+ZDRUŽENO na dir: /home/andreja/OBDELAVA_GENOTIPOV/Genotipi_DATA/Genotipi_latest/Govedo/Top/Versa50K
+UVOZ KONČAN!! 554 SNP, zip prestavljen na mrežo
+
+############## PONOVNO OBDELAJ (če ni ) PO FORMATIRANJU - PREVERI ČE JE ŽE ZDRUŽENO!!!!
+snp_SI_230807.zip
+/home/andreja/iConvert
+UVOŽENO, ZDRUŽENO, datoteke pobrisane zaradi hekerskega napada, če jih rabiš ponovno obdelaj.!!
+
+
+
+
+
+
+
+
 
 
 
@@ -1548,9 +2080,57 @@ ZDRUŽEVANJE:
 
 #############################################
 
+LS PASMA:
+ZDRUŽEVANJE PLINK DATOTEK 06062023 datoteko zdruzeni_LS_20230606
+
+~/PLINK/plink_linux_x86_64_20221210/plink --file convert_705_43376_updated_230602 --cow --merge-list seznam_LS_20230606 --recode --out zdruzeni_LS_nemcija
+=> 1680 živali QC:1680)
+
+seznam_Versa50K:
+convert_705_43376_updated_230602 tej datoteki sem pripela vse ostale:
+convert_705_43376_updated_230601.ped	convert_705_43376_updated_230601.map
+convert_705_43376_updated_220913.ped	convert_705_43376_updated_220913.map
+convert_705_43376_updated_220617.ped	convert_705_43376_updated_220617.map
+
+ta čip združiš ločeno:
+convert_705_54609_updated_220616.ped	convert_705_54609_updated_220616.map
 
 
-VEDNO PRESTAVI VSE OBDELANE ZIPE v ZIPGENOFILES!!
+USPEŠNO ZDRUŽENO:
+
+1503 cattle (869 males, 634 females) loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 1503 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 13056 het. haploid genotypes present (see zdruzeni_RJ_Versa50K.hh );
+many commands treat these as missing.
+Total genotyping rate is 0.996065.
+43376 variants and 1503 cattle pass filters and QC.
+
+
+QC že izveden??
+
+
+NAREDIM QC ZDRUŽENE DATOTEKE:
+bash 1_QC_FileArgs.sh zdruzeni_LS_nemcija DE_custom_LS-43376
+
+JAVI NAPAKO-PREVERI!!!
+
+iz baze:low_call:
+SI94728747
+SI74564046
+SI85273399
+SI64564047
+SI64842787
+
+
+~/PLINK/plink_linux_x86_64_20221210/plink --file LS_nemcija --missing --het --cow --recode --out LS_nemcija_DE_custom_LS-43376
+###################################
+
+
+
+
+
 
 
 
