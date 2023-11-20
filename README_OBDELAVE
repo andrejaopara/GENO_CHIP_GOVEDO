@@ -1963,9 +1963,13 @@ UVOŽENO, ZDRUŽENO, datoteke pobrisane zaradi hekerskega napada, če jih rabiš
 
 
 
-
-
-
+PAZI!!
+sem dodala na git in mi je potegnilo dol nove datoteke 
+/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/DrawMissPlotMarkers.R
+/home/andreja/OBDELAVA_GENOTIPOV/GENO_CHIP_GOVEDO/DrawHetMissPlotInd.R
+če ne bo delalo so stare na 
+/home/andreja/tmp/DrawHetMissPlotInd.R
+/home/andreja/tmp/DrawMissPlotMarkers.R
 
 
 
@@ -2211,7 +2215,7 @@ GIT JANA:
 Če daš git status ti pokaže, kaj je v commitu!!!
 !!!
 $ git add .
-$ git commit -m "sys.exit spremeni v print"
+$ git commit -m "andreja"
 $ git push origin branch-name  --master    (git push origin master-OK!!)
 !!!!
 git pull
